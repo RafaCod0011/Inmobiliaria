@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     tools:context=".ui.login.LoginActivity">
 
     <ScrollView
@@ -26,7 +25,6 @@
                 android:text="Inmobiliaria La Punta"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#9C6BB3"
                 android:layout_marginBottom="24dp"/>
 
             <ImageView
@@ -43,7 +41,6 @@
                 app:boxCornerRadiusTopEnd="50dp"
                 app:boxCornerRadiusBottomStart="50dp"
                 app:boxCornerRadiusBottomEnd="50dp"
-                android:backgroundTint="#D1A3E0"
                 android:layout_marginBottom="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -63,7 +60,6 @@
                 app:boxCornerRadiusTopEnd="50dp"
                 app:boxCornerRadiusBottomStart="50dp"
                 app:boxCornerRadiusBottomEnd="50dp"
-                android:backgroundTint="#D1A3E0"
                 android:layout_marginBottom="24dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -82,8 +78,6 @@
                 android:text="LOGIN"
                 android:textStyle="bold"
                 android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:backgroundTint="#9C6BB3"
                 app:cornerRadius="50dp"/>
 
         </LinearLayout>

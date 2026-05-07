@@ -34,12 +34,12 @@ public class LoginActivity extends AppCompatActivity {
             binding.etPassword.setError(error);
         });
 
-        vm.getLoginExitoso().observe(this, exito -> {
+        /*vm.getLoginExitoso().observe(this, exito -> {
             if (exito) {
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
             }
-        });
+        });*/
 
         binding.btnLogin.setOnClickListener(v -> {
             String user = binding.etUsuario.getText().toString();

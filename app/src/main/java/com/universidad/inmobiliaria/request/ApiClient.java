@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.universidad.inmobiliaria.modelo.Propietario;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public class ApiClient {
@@ -32,9 +35,11 @@ public class ApiClient {
         @POST("api/Propietarios/login")
         Call<String> login(@Field("Usuario") String usuario, @Field("Clave") String clave);
 
+        @GET("api/Propietarios")
+        Call<Propietario> getPropietario(@Header("Authorization") String token);
     }
 
-    public static void recuperarToken(Context context, String token) {
+    public static void crearToken(Context context, String token) {
         SharedPreferences sp = context.getSharedPreferences("token.xml", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("token", token);

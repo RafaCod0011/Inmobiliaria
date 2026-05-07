@@ -1,5 +1,6 @@
 package com.universidad.inmobiliaria;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.nav_inicio,
                 R.id.nav_perfil,
                 R.id.nav_inmuebles,
                 R.id.nav_inquilinos,
@@ -48,9 +50,26 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
 // Menu lateral
+        // Menu lateral
         if (binding.navView != null) {
             NavigationUI.setupWithNavController(binding.navView, navController);
+
+            // 👇 Agregá este bloque
+            binding.navView.setNavigationItemSelectedListener(item -> {
+                if (item.getItemId() == R.id.nav_logout) {
+                    mostrarDialogLogout();
+                    binding.drawerLayout.closeDrawers();
+                    return true;
+                }
+
+                boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
+                if (handled) {
+                    binding.drawerLayout.closeDrawers();
+                }
+                return handled;
+            });
         }
+
 //Menu inferior
         if (binding.appBarMain.contentMain.bottomNavView != null) {
             NavigationUI.setupWithNavController(binding.appBarMain.contentMain.bottomNavView, navController);
@@ -87,4 +106,23 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    private void mostrarDialogLogout() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Cerrar sesión")
+                .setMessage("¿Está seguro de que desea cerrar la sesión?")
+                .setPositiveButton("Sí", (dialog, which) -> {
+                    // Opcional: limpiar sesión (SharedPreferences, etc.)
+                    // SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
+                    // prefs.edit().clear().apply();
+
+                    // Ir al LoginActivity
+                    Intent intent = new Intent(MainActivity.this, com.universidad.inmobiliaria.ui.login.LoginActivity.class);
+                    startActivity(intent);
+                    finish(); // cerrar MainActivity
+                })
+                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
 }

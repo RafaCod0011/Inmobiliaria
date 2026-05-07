@@ -1,14 +1,14 @@
-package com.universidad.inmobiliaria.ui.slideshow;
+package com.universidad.inmobiliaria.ui.inquilinos;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class InquilinosViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public InquilinosViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is slideshow fragment");
     }

@@ -1,4 +1,4 @@
-package com.universidad.inmobiliaria.ui.reflow;
+package com.universidad.inmobiliaria.ui.inmuebles;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.universidad.inmobiliaria.databinding.FragmentReflowBinding;
+import com.universidad.inmobiliaria.databinding.FragmentInmueblesBinding;
 
-public class ReflowFragment extends Fragment {
+public class InmueblesFragment extends Fragment {
 
-    private FragmentReflowBinding binding;
+    private FragmentInmueblesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ReflowViewModel reflowViewModel =
-                new ViewModelProvider(this).get(ReflowViewModel.class);
+        InmueblesViewModel reflowViewModel =
+                new ViewModelProvider(this).get(InmueblesViewModel.class);
 
-        binding = FragmentReflowBinding.inflate(inflater, container, false);
+        binding = FragmentInmueblesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textReflow;

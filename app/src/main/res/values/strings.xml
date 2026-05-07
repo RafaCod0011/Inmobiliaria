@@ -22,4 +22,9 @@
     <string name="image_view_item_transform_content_description">Represents an image view in the
         item
     </string>
+    <string name="menu_perfil">Perfil</string>
+    <string name="menu_inmuebles">Inmuebles</string>
+    <string name="menu_inquilinos">Inquilinos</string>
+    <string name="menu_contratos">Contratos</string>
+    <string name="menu_logout">Logout</string>
 </resources>

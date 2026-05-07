@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    tools:context=".ui.login.LoginActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inmobiliaria La Punta"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#9C6BB3"
+                android:layout_marginBottom="24dp"/>
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ubic"
+                android:layout_marginBottom="32dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusBottomEnd="50dp"
+                android:backgroundTint="#D1A3E0"
+                android:layout_marginBottom="12dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Usuario"
+                    android:paddingStart="16dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="filled"
+                app:endIconMode="password_toggle"
+                app:boxCornerRadiusTopStart="50dp"
+                app:boxCornerRadiusTopEnd="50dp"
+                app:boxCornerRadiusBottomStart="50dp"
+                app:boxCornerRadiusBottomEnd="50dp"
+                android:backgroundTint="#D1A3E0"
+                android:layout_marginBottom="24dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Contraseña"
+                    android:paddingStart="16dp"
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnLogin"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="LOGIN"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:backgroundTint="#9C6BB3"
+                app:cornerRadius="50dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

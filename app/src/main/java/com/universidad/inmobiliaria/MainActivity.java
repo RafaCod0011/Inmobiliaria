@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_transform,
-                R.id.nav_reflow,
-                R.id.nav_slideshow,
-                R.id.nav_settings
+                R.id.nav_perfil,
+                R.id.nav_inmuebles,
+                R.id.nav_inquilinos,
+                R.id.nav_contratos
         )
                 .setOpenableLayout(binding.drawerLayout)
                 .build();

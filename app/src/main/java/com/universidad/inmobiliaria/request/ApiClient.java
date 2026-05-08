@@ -36,6 +36,7 @@ public class ApiClient {
         @POST("api/Propietarios/login")
         Call<String> login(@Field("Usuario") String usuario, @Field("Clave") String clave);
 
+        //Obtener al Propietario que esta usando la app
         @GET("api/Propietarios")
         Call<Propietario> getPropietario(@Header("Authorization") String token);
 
@@ -46,7 +47,7 @@ public class ApiClient {
     public static void crearToken(Context context, String token) {
         SharedPreferences sp = context.getSharedPreferences("token.xml", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString("token", token);
+        editor.putString("token", "Bearer " + token);
         editor.apply();
     }
 

@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.universidad.inmobiliaria.modelo.Inmueble;
 import com.universidad.inmobiliaria.modelo.Propietario;
 
 import retrofit2.Call;
@@ -37,6 +38,9 @@ public class ApiClient {
 
         @GET("api/Propietarios")
         Call<Propietario> getPropietario(@Header("Authorization") String token);
+
+        @GET("api/Inmuebles")
+        Call<Inmueble> getInmueble(@Header("Authorization") String token);
     }
 
     public static void crearToken(Context context, String token) {

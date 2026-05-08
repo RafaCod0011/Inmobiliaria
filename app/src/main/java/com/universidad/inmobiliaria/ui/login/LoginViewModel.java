@@ -65,6 +65,8 @@ public class LoginViewModel extends AndroidViewModel {
                         Log.d("Error", response.message()); // Mensaje de error que devuelve
                         Log.d("Error", response.code()+""); // Codigo del error
                         Log.d("Error", response.errorBody().toString()+""); // junto
+
+                        Toast.makeText(context, "Contraseña y/o Usuario Incorrecto", Toast.LENGTH_SHORT).show();
                     }
                 }
 

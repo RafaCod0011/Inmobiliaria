@@ -10,24 +10,24 @@
             android:title="Inicio" />
         <item
             android:id="@+id/nav_perfil"
-            android:icon="@drawable/ic_camera_black_24dp"
+            android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/menu_perfil" />
         <item
             android:id="@+id/nav_inmuebles"
-            android:icon="@drawable/ic_gallery_black_24dp"
+            android:icon="@drawable/ic_building_black_24dp"
             android:title="@string/menu_inmuebles" />
         <item
             android:id="@+id/nav_inquilinos"
-            android:icon="@drawable/ic_slideshow_black_24dp"
+            android:icon="@drawable/ic_tenant_black_24dp"
             android:title="@string/menu_inquilinos" />
         <item
             android:id="@+id/nav_contratos"
-            android:icon="@drawable/ic_settings_black_24dp"
+            android:icon="@drawable/ic_contracts_black_24dp"
             android:title="@string/menu_contratos" />
 
         <item
             android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_settings_black_24dp"
+            android:icon="@drawable/ic_logout_black_24dp"
             android:title="@string/menu_logout" />
 
     </group>

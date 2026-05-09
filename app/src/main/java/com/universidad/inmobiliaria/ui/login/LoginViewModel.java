@@ -43,39 +43,39 @@ public class LoginViewModel extends AndroidViewModel {
 
         if (usuario.isEmpty()) {
             errorUsuario.setValue("Ingrese su usuario");
-        } else if (password.isEmpty()) {
+            return;
+        }
+        if (password.isEmpty()) {
             errorPassword.setValue("Ingrese la contraseña");
-        } else {
-            ApiClient.MiServicioInmobiliaria servicio =  ApiClient.getServicio();
-            Call<String> call = servicio.login(usuario,password);
-            call.enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    if(response.isSuccessful()){
-                        // Revisar colocar o no el TOAST
-                        Toast.makeText(context, "Ingresando....", Toast.LENGTH_SHORT).show();
-                        String token = response.body();
-                        ApiClient.crearToken(context,token);
-                        Log.d("token",token);
-                        Intent intent = new Intent(context, MainActivity.class);
-                        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+            return;
+        }
 
-                    }else{
-                        Log.d("Error", response.message()); // Mensaje de error que devuelve
-                        Log.d("Error", response.code()+""); // Codigo del error
-                        Log.d("Error", response.errorBody().toString()+""); // junto
-                        if (response.code() == 400)
-                            Toast.makeText(context, "Contraseña y/o Usuario Incorrecto", Toast.LENGTH_SHORT).show();
+        ApiClient.MiServicioInmobiliaria servicio = ApiClient.getServicio();
+        Call<String> call = servicio.login(usuario, password);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    String token = response.body();
+                    ApiClient.crearToken(getApplication(), token);
+
+                    loginExitoso.postValue(true);   // ← Esto activa la navegación
+                } else {
+                    if (response.code() == 400) {
+                        Toast.makeText(getApplication(), "Usuario o contraseña incorrectos", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplication(), "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
 
-                @Override
-                public void onFailure(Call<String> call, Throwable t) {
-                    Log.d("Mensaje",t.getMessage());
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Toast.makeText(getApplication(), "Error de conexión. Revise su internet", Toast.LENGTH_LONG).show();
+                t.printStackTrace();
+            }
+        });
     }
 
 }

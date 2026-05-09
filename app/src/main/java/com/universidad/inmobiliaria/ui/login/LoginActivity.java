@@ -2,12 +2,10 @@ package com.universidad.inmobiliaria.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.universidad.inmobiliaria.MainActivity;
-import com.universidad.inmobiliaria.R;
 import com.universidad.inmobiliaria.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -24,8 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
         vm = new ViewModelProvider(this).get(LoginViewModel.class);
 
-
-
+        // Observers
         vm.getErrorUsuario().observe(this, error -> {
             binding.etUsuario.setError(error);
         });
@@ -34,18 +31,20 @@ public class LoginActivity extends AppCompatActivity {
             binding.etPassword.setError(error);
         });
 
-        /*vm.getLoginExitoso().observe(this, exito -> {
-            if (exito) {
-                startActivity(new Intent(this, MainActivity.class));
+        // Observer de login exitoso
+        vm.getLoginExitoso().observe(this, exito -> {
+            if (Boolean.TRUE.equals(exito)) {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 finish();
             }
-        });*/
-
-        binding.btnLogin.setOnClickListener(v -> {
-            String user = binding.etUsuario.getText().toString();
-            String pass = binding.etPassword.getText().toString();
-            vm.verificarDatos(user, pass);
         });
 
+        binding.btnLogin.setOnClickListener(v -> {
+            String usuario = binding.etUsuario.getText().toString().trim();
+            String password = binding.etPassword.getText().toString().trim();
+            vm.verificarDatos(usuario, password);
+        });
     }
 }

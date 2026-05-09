@@ -20,6 +20,10 @@ import retrofit2.http.POST;
 public class ApiClient {
 
     public final static String BASE_URL = "https://capacitacion.alwaysdata.net/";
+    public static void borrarToken(Context context) {
+        SharedPreferences sp = context.getSharedPreferences("token.xml", Context.MODE_PRIVATE);
+        sp.edit().clear().apply();   // Borra todo el archivo de token
+    }
 
     public static MiServicioInmobiliaria getServicio(){
         Gson gson = new GsonBuilder().setLenient().create();

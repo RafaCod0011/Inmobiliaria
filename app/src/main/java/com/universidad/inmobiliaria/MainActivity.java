@@ -18,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.universidad.inmobiliaria.databinding.ActivityMainBinding;
+import com.universidad.inmobiliaria.request.ApiClient;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -109,20 +110,34 @@ public class MainActivity extends AppCompatActivity {
 
     private void mostrarDialogLogout() {
         new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle("Cerrar sesión")
+                .setTitle("Cerrar Sesión")
                 .setMessage("¿Está seguro de que desea cerrar la sesión?")
                 .setPositiveButton("Sí", (dialog, which) -> {
-                    // Opcional: limpiar sesión (SharedPreferences, etc.)
-                    // SharedPreferences prefs = getSharedPreferences("usuario", MODE_PRIVATE);
-                    // prefs.edit().clear().apply();
 
-                    // Ir al LoginActivity
+                    // ====================== LIMPIAR TOKEN ======================
+                    ApiClient.borrarToken(this);   // ← Nuevo método que vamos a crear
+
+                    // Ir al Login y limpiar la pila de actividades
                     Intent intent = new Intent(MainActivity.this, com.universidad.inmobiliaria.ui.login.LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
-                    finish(); // cerrar MainActivity
+                    finish();
+
                 })
-                .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                .setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss())
                 .show();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        String token = ApiClient.usarToken(this);
+        if (token == null || token.isEmpty()) {
+            // Si no hay token, volver al login
+            Intent intent = new Intent(this, com.universidad.inmobiliaria.ui.login.LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
     }
 
 }

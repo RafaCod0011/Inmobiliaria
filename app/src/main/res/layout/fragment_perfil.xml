@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="#F5F5F5"
     tools:context=".ui.perfil.PerfilFragment">
 
     <LinearLayout
@@ -19,8 +20,9 @@
             android:text="Mi Perfil"
             android:textSize="24sp"
             android:textStyle="bold"
+            android:textColor="#212121"
             android:gravity="center"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="32dp" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -34,23 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ID Propietario"
-                    android:textStyle="bold"
-                    android:textColor="#616161" />
-
-                <TextView
-                    android:id="@+id/tvIdPropietario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="1"
-                    android:textSize="16sp"
-                    android:textColor="#212121"
-                    android:layout_marginBottom="16dp" />
+                android:padding="24dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -64,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nombre"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textColor="#212121"
                     android:layout_marginBottom="16dp" />
 
@@ -80,7 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Apellido"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textColor="#212121"
                     android:layout_marginBottom="16dp" />
 
@@ -96,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="12345678"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textColor="#212121"
                     android:layout_marginBottom="16dp" />
 
@@ -112,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="1122334455"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textColor="#212121"
                     android:layout_marginBottom="16dp" />
 
@@ -128,38 +114,33 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="correo@email.com"
-                    android:textSize="16sp"
-                    android:textColor="#212121"
-                    android:layout_marginBottom="16dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Clave"
-                    android:textStyle="bold"
-                    android:textColor="#616161" />
-
-                <TextView
-                    android:id="@+id/tvClave"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="********"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textColor="#212121" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- Botones de acción -->
         <Button
             android:id="@+id/btnEditar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Editar"
+            android:text="Editar Perfil"
             android:textStyle="bold"
             android:padding="14dp"
             android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/btnCambiarClave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cambiar Contraseña"
+            android:textStyle="bold"
+            android:padding="14dp"
+            android:backgroundTint="#2196F3"
             android:textColor="#FFFFFF" />
 
     </LinearLayout>
-
 </ScrollView>

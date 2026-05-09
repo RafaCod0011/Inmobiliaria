@@ -21,10 +21,6 @@ Aplicación Android para propietarios de inmuebles desarrollada en Java con Andr
 - **Navigation Component**
 - SharedPreferences para persistencia de token
 
-### 👨‍🏫 Credenciales de prueba:
-- Usuario: `luisprofessor@gmail.com`
-- Contraseña: `DEEKQW`
-
 ### 📋 Próximas entregas:
 - Edición de perfil y cambio de contraseña
 - Gestión de inmuebles

@@ -4,16 +4,20 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.List;
+
 public class InicioViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
+    private MutableLiveData<LatLng> location = new MutableLiveData<>();
 
-    public InicioViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("Bienvenido a la pantalla de Inicio");
+    public LiveData<LatLng> getLocation(){
+        return location;
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public void cargarUbicacion(){
+        LatLng inmobiliaria = new LatLng(-33.322811649042265, -66.31181521867478);
+        location.setValue(inmobiliaria);
     }
 }

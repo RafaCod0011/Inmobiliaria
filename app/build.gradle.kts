@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.play.services.maps)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -11,11 +11,13 @@ import com.universidad.inmobiliaria.modelo.Propietario;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public class ApiClient {
 
@@ -44,8 +46,26 @@ public class ApiClient {
         @GET("api/Propietarios")
         Call<Propietario> getPropietario(@Header("Authorization") String token);
 
+        //Actualizar Perfil
+        @PUT("api/Propietarios/actualizar")
+        Call<Propietario> actualizarPropietario(@Header("Authorization") String token, @Body Propietario propietario);
+
         @GET("api/Inmuebles")
         Call<Inmueble> getInmueble(@Header("Authorization") String token);
+
+
+        //Cambiar Contraseña
+        @FormUrlEncoded
+        @PUT("api/Propietarios/changePassword")
+        Call<Void> cambiarPassword(@Header("Authorization") String token,
+                                   @Field("currentPassword") String currentPassword,
+                                   @Field("newPassword") String newPassword
+        );
+
+        // Resetear Contraseña
+        @FormUrlEncoded
+        @POST("api/Propietarios/email")
+        Call<String> resetearPass(@Field("email") String email);
     }
 
     public static void crearToken(Context context, String token) {

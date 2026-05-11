@@ -22,18 +22,26 @@ import retrofit2.Response;
 
 public class PerfilViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Propietario> propietarioMutable;
+    private MutableLiveData<Propietario> propietarioMutable =new MutableLiveData<>();
+    private MutableLiveData<String> mensajeMutable = new MutableLiveData<>();
+    private MutableLiveData<Boolean> perfilActualizadoMutable = new MutableLiveData<>();
 
         public PerfilViewModel(@NonNull Application application){
             super(application);
         }
 
-        public LiveData<Propietario> getPropietarioMutable(){
-            if(propietarioMutable == null){
-                propietarioMutable = new MutableLiveData<>();
-            }
+        public LiveData<Propietario>getPropietarioMutable() {
             return propietarioMutable;
         }
+
+        public LiveData<String> getMensajeMutable() {
+            return mensajeMutable;
+        }
+
+        public LiveData<Boolean>getPerfilActualizadoMutable() {
+            return perfilActualizadoMutable;
+        }
+
 
         public void cargarPerfil(){
 
@@ -62,4 +70,76 @@ public class PerfilViewModel extends AndroidViewModel {
 
 
         }
+
+        public void guardarPerfil(String nombre, String apellido,String dni, String telefono,String email) {
+
+            if (nombre.isEmpty()
+                    || apellido.isEmpty()
+                    || dni.isEmpty()
+                    || telefono.isEmpty()
+                    || email.isEmpty()) {
+
+                mensajeMutable.postValue(
+                        "Complete todos los campos solicitados"
+                );
+                return;
+            }
+            Propietario propietario =propietarioMutable.getValue();
+
+            if(propietario == null){
+                mensajeMutable.postValue("No se pudo obtener el perfil");
+                return;
+            }
+
+            propietario.setNombre(nombre);
+            propietario.setApellido(apellido);
+            propietario.setDni(Integer.parseInt(dni));
+            propietario.setTelefono(Integer.parseInt(telefono));
+            propietario.setEmail(email);
+            actualizarPerfil(propietario);
+        }
+
+        private void actualizarPerfil(Propietario propietario) {
+
+            String token = ApiClient.usarToken(getApplication());
+
+            ApiClient.MiServicioInmobiliaria servicio = ApiClient.getServicio();
+
+            Call<Propietario> call = servicio.actualizarPropietario(token,propietario);
+
+            call.enqueue(new Callback<Propietario>() {
+
+                        @Override
+                        public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+
+                            if (response.isSuccessful()) {
+                                propietarioMutable.postValue( response.body()
+                                );
+                                mensajeMutable.postValue("Perfil actualizado correctamente");
+                                perfilActualizadoMutable.postValue(true);
+
+                            } else {
+
+                               mensajeMutable.postValue("No se pudo actualizar el perfil");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(
+                                Call<Propietario> call, Throwable t
+                        ) {
+                        Log.d("Error al actualizar el perfil", t.getMessage()
+                            );
+                        }
+                    });
+        }
+        public void limpiarMensaje(){
+            mensajeMutable.setValue(null);
+        }
+
+        public void resetPerfilActualizado(){
+            perfilActualizadoMutable.setValue(false);
+        }
+
+
 }

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     android:background="#F5F5F5"
+    android:fillViewport="true"
     tools:context=".ui.perfil.PerfilFragment">
 
     <LinearLayout
@@ -17,20 +17,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mi Perfil"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#212121"
+            android:layout_marginBottom="32dp"
             android:gravity="center"
-            android:layout_marginBottom="32dp" />
+            android:text="Mi Perfil"
+            android:textColor="#212121"
+            android:textSize="26sp"
+            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
             android:layout_marginBottom="24dp"
-            android:backgroundTint="#FFFFFF">
+            android:backgroundTint="#FFFFFF"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,109 +38,96 @@
                 android:orientation="vertical"
                 android:padding="24dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textStyle="bold"
-                    android:textColor="#616161" />
-
-                <TextView
-                    android:id="@+id/tvNombre"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nombre"
-                    android:textSize="17sp"
-                    android:textColor="#212121"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:hint="Nombre">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Apellido"
-                    android:textStyle="bold"
-                    android:textColor="#616161" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvApellido"
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Apellido"
-                    android:textSize="17sp"
-                    android:textColor="#212121"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:hint="Apellido">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DNI"
-                    android:textStyle="bold"
-                    android:textColor="#616161" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etApellido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvDni"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="12345678"
-                    android:textSize="17sp"
-                    android:textColor="#212121"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:hint="DNI">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Teléfono"
-                    android:textStyle="bold"
-                    android:textColor="#616161" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDni"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvTelefono"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1122334455"
-                    android:textSize="17sp"
-                    android:textColor="#212121"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:hint="Teléfono">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:textStyle="bold"
-                    android:textColor="#616161" />
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTelefono"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="phone" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvEmail"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="correo@email.com"
-                    android:textSize="17sp"
-                    android:textColor="#212121" />
+                    android:hint="Email">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- Botones de acción -->
         <Button
             android:id="@+id/btnEditar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Editar Perfil"
-            android:textStyle="bold"
-            android:padding="14dp"
+            android:layout_marginBottom="12dp"
             android:backgroundTint="#4CAF50"
+            android:padding="14dp"
+            android:text="Editar Perfil"
             android:textColor="#FFFFFF"
-            android:layout_marginBottom="12dp"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnCambiarClave"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Cambiar Contraseña"
-            android:textStyle="bold"
-            android:padding="14dp"
             android:backgroundTint="#2196F3"
-            android:textColor="#FFFFFF" />
+            android:padding="14dp"
+            android:text="Cambiar Contraseña"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold" />
 
     </LinearLayout>
+
 </ScrollView>

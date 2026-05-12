@@ -34,5 +34,10 @@
         android:name="com.universidad.inmobiliaria.ui.contratos.ContratosFragment"
         android:label="@string/menu_contratos"
         tools:layout="@layout/fragment_contratos" />
+    <fragment
+        android:id="@+id/cambiarClaveFragment"
+        android:name="com.universidad.inmobiliaria.ui.perfil.CambiarClaveFragment"
+        android:label="Cambiar Contraseña"
+        tools:layout="@layout/fragment_cambiar_clave" />
 
 </navigation>

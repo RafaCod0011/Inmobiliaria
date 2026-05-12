@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.universidad.inmobiliaria.R;
 import com.universidad.inmobiliaria.databinding.FragmentPerfilBinding;
 
 public class PerfilFragment extends Fragment {
@@ -80,6 +81,13 @@ public class PerfilFragment extends Fragment {
         });
         binding.btnCambiarClave.setOnClickListener(v -> {
             // TODO: Implementar cambio de contraseña (próxima entrega)
+        }
+        );
+        binding.btnCambiarClave.setOnClickListener(v -> {
+            androidx.navigation.NavController navController =
+                    androidx.navigation.Navigation.findNavController(requireView());
+
+            navController.navigate(R.id.cambiarClaveFragment);
         });
     }
 

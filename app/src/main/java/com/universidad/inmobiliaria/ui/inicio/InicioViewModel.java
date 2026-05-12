@@ -10,11 +10,16 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.universidad.inmobiliaria.R;
 
 public class InicioViewModel extends AndroidViewModel {
 
@@ -54,11 +59,21 @@ public class InicioViewModel extends AndroidViewModel {
             }
 
             // Configuración del marcador de la inmobiliaria
-            googleMap.addMarker(new MarkerOptions()
-                    .position(inmobiliaria)
-                    .title("Nuestra Inmobiliaria"));
 
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(inmobiliaria, 15f));
+            MarkerOptions marker = new MarkerOptions()
+                    .position(inmobiliaria)
+                    .title("Nuestra Inmobiliaria");
+
+            googleMap.addMarker(marker);
+
+            CameraPosition cameraPosition = new CameraPosition.Builder()
+                    .target(inmobiliaria)
+                    .zoom(18)
+                    .bearing(0)
+                    .tilt(30)
+                    .build();
+            CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(cameraPosition);
+            googleMap.animateCamera(cameraUpdate);
         }
     }
 }

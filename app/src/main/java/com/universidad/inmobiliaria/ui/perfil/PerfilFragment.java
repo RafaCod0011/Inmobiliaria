@@ -27,7 +27,7 @@ public class PerfilFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentPerfilBinding.inflate(inflater, container, false);
-        vm = new ViewModelProvider(this).get(PerfilViewModel.class);
+        vm = new ViewModelProvider(requireActivity()).get(PerfilViewModel.class);
 
         return binding.getRoot();
     }

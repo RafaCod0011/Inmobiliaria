@@ -2,14 +2,13 @@ package com.universidad.inmobiliaria;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.Menu;
+import android.view.View;
+import android.widget.TextView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
-import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -19,10 +18,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.universidad.inmobiliaria.databinding.ActivityMainBinding;
 import com.universidad.inmobiliaria.request.ApiClient;
+import com.universidad.inmobiliaria.ui.perfil.PerfilViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private PerfilViewModel perfilViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         if (binding.navView != null) {
             NavigationUI.setupWithNavController(binding.navView, navController);
 
-            // 👇 Agregá este bloque
             binding.navView.setNavigationItemSelectedListener(item -> {
                 if (item.getItemId() == R.id.nav_logout) {
                     mostrarDialogLogout();
@@ -76,6 +76,20 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupWithNavController(binding.appBarMain.contentMain.bottomNavView, navController);
         }
 
+        // CARGAR HEADER
+        perfilViewModel = new ViewModelProvider(this).get(PerfilViewModel.class);
+        View headerView = binding.navView.getHeaderView(0);
+        TextView tvNombreHeader = headerView.findViewById(R.id.tvHeaderNombre);
+        TextView tvEmailHeader = headerView.findViewById(R.id.tvHeaderEmail);
+
+        perfilViewModel.getPropietarioMutable().observe(this, propietario -> {
+            if (propietario != null) {
+                tvNombreHeader.setText(propietario.getNombre());
+                tvEmailHeader.setText(propietario.getEmail());
+            }
+        });
+
+        perfilViewModel.cargarPerfil();
         /*BottomNavigationView bottomNavigationView = binding.appBarMain.contentMain.bottomNavView;
         if (bottomNavigationView != null) {
             mAppBarConfiguration = new AppBarConfiguration.Builder(

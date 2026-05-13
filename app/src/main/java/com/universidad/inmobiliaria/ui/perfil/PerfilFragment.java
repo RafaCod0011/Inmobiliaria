@@ -79,10 +79,7 @@ public class PerfilFragment extends Fragment {
                 guardarPerfil();
             }
         });
-        binding.btnCambiarClave.setOnClickListener(v -> {
-            // TODO: Implementar cambio de contraseña (próxima entrega)
-        }
-        );
+
         binding.btnCambiarClave.setOnClickListener(v -> {
             androidx.navigation.NavController navController =
                     androidx.navigation.Navigation.findNavController(requireView());

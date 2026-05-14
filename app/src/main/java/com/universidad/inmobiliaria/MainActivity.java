@@ -98,6 +98,20 @@ public class MainActivity extends AppCompatActivity {
             NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
             NavigationUI.setupWithNavController(bottomNavigationView, navController);
         }*/
+
+        //Deberia viajar al fragment para cargar el inmueble
+        binding.appBarMain.fab.setOnClickListener(v -> {
+            binding.appBarMain.contentMain.bottomNavView.setSelectedItemId(R.id.nav_inmuebles);
+        });
+
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            if (destination.getId() == R.id.nav_inmuebles) {
+                binding.appBarMain.fab.show();
+            } else {
+                binding.appBarMain.fab.hide();
+            }
+        });
+
     }
 
     @Override

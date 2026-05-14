@@ -76,9 +76,9 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="LOGIN"
-                android:textStyle="bold"
                 android:textAllCaps="true"
-                app:cornerRadius="50dp"/>
+                android:textStyle="bold"
+                app:cornerRadius="50dp" />
 
         </LinearLayout>
     </ScrollView>

@@ -80,10 +80,39 @@ public class PerfilViewModel extends AndroidViewModel {
                     || email.isEmpty()) {
 
                 mensajeMutable.postValue(
-                        "Complete todos los campos solicitados"
+                        "Complete todos los los campos solicitados"
                 );
                 return;
             }
+
+            if (!nombre.matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+                mensajeMutable.postValue(
+                        "El nombre no puede contener números"
+                );
+                return;
+            }
+
+            if (!apellido.matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+                mensajeMutable.postValue(
+                        "El apellido no puede contener números"
+                );
+                return;
+            }
+
+            if (!dni.matches("^[0-9]+$")) {
+                mensajeMutable.postValue(
+                        "El DNI solo puede contener números"
+                );
+                return;
+            }
+
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                mensajeMutable.postValue(
+                        "Ingrese un email válido"
+                );
+                return;
+            }
+
             Propietario propietario =propietarioMutable.getValue();
 
             if(propietario == null){

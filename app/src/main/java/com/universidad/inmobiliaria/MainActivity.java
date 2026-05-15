@@ -90,40 +90,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         perfilViewModel.cargarPerfil();
-        /*BottomNavigationView bottomNavigationView = binding.appBarMain.contentMain.bottomNavView;
-        if (bottomNavigationView != null) {
-            mAppBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow)
-                    .build();
-            NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-            NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        }*/
 
-        //Deberia viajar al fragment para cargar el inmueble
-        binding.appBarMain.fab.setOnClickListener(v -> {
-            binding.appBarMain.contentMain.bottomNavView.setSelectedItemId(R.id.nav_inmuebles);
-        });
 
-        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.nav_inmuebles) {
-                binding.appBarMain.fab.show();
-            } else {
-                binding.appBarMain.fab.hide();
-            }
-        });
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
-        // Using findViewById because NavigationView exists in different layout files
-        // between w600dp and w1240dp
+
         NavigationView navView = findViewById(R.id.nav_view);
         if (navView == null) {
-            // The navigation drawer already has the items including the items in the overflow menu
-            // We only inflate the overflow menu if the navigation drawer isn't visible
-            getMenuInflater().inflate(R.menu.overflow, menu);
+             getMenuInflater().inflate(R.menu.overflow, menu);
         }
         return result;
     }

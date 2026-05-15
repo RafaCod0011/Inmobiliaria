@@ -8,6 +8,8 @@ import com.google.gson.GsonBuilder;
 import com.universidad.inmobiliaria.modelo.Inmueble;
 import com.universidad.inmobiliaria.modelo.Propietario;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,8 +52,9 @@ public class ApiClient {
         @PUT("api/Propietarios/actualizar")
         Call<Propietario> actualizarPropietario(@Header("Authorization") String token, @Body Propietario propietario);
 
+
         @GET("api/Inmuebles")
-        Call<Inmueble> getInmueble(@Header("Authorization") String token);
+        Call<List<Inmueble>> getInmuebles(@Header("Authorization") String token);
 
 
         //Cambiar Contraseña

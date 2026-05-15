@@ -39,5 +39,10 @@
         android:name="com.universidad.inmobiliaria.ui.perfil.CambiarClaveFragment"
         android:label="Cambiar Contraseña"
         tools:layout="@layout/fragment_cambiar_clave" />
+    <fragment
+        android:id="@+id/detalleInmuebleFragment"
+        android:name="com.universidad.inmobiliaria.ui.inmuebles.DetalleInmuebleFragment"
+        android:label="Inmueble"
+        tools:layout="@layout/fragment_detalle_inmueble" />
 
 </navigation>

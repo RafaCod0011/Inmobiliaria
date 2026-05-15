@@ -9,8 +9,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.universidad.inmobiliaria.R;
 import com.universidad.inmobiliaria.databinding.FragmentInmueblesBinding;
 
 import java.util.ArrayList;
@@ -47,11 +50,10 @@ public class InmueblesFragment extends Fragment {
 
         vm.cargarInmuebles();
 
+        // Navegacion del boton para ir a la parte de ALTA de inmueble.
         b.btnAltaInmueble.setOnClickListener(v -> {
-
-            Toast.makeText(getContext(),
-                    "Ir a Alta de Inmueble",
-                    Toast.LENGTH_SHORT).show();
+            NavController navController = Navigation.findNavController(v);
+            navController.navigate(R.id.detalleInmuebleFragment);
         });
 
         return b.getRoot();

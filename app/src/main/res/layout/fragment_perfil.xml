@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
     android:fillViewport="true"
     tools:context=".ui.perfil.PerfilFragment">
 
@@ -20,7 +19,6 @@
             android:layout_marginBottom="32dp"
             android:gravity="center"
             android:text="Mi Perfil"
-            android:textColor="#212121"
             android:textSize="26sp"
             android:textStyle="bold" />
 
@@ -28,7 +26,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:backgroundTint="#FFFFFF"
             app:cardCornerRadius="20dp"
             app:cardElevation="5dp">
 

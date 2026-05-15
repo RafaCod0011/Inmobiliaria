@@ -38,7 +38,7 @@ public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHo
         Inmueble inmueble = lista.get(position);
 
         holder.b.tvDireccion.setText(inmueble.getDireccion());
-        holder.b.tvPrecio.setText(String.valueOf(inmueble.getPrecio()));
+        holder.b.tvPrecio.setText(String.format("$ %.2f", inmueble.getValor()));
     }
 
     @Override

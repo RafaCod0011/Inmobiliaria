@@ -4,64 +4,76 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="4dp">
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="12dp">
+        android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardImagen"
-            android:layout_width="0dp"
-            android:layout_height="120dp"
-            app:cardCornerRadius="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <!-- IMAGEN PRINCIPAL -->
+        <ImageView
+            android:id="@+id/imgInmueble"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ubic"
+            android:contentDescription="Imagen del inmueble" />
 
-            <ImageView
-                android:id="@+id/imgInmueble"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ubic" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
+        <!-- CONTENIDO -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardImagen">
+            android:orientation="vertical"
+            android:padding="14dp">
 
-            <LinearLayout
+            <!-- DIRECCIÓN -->
+            <TextView
+                android:id="@+id/tvDireccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:text="Dirección del inmueble"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:maxLines="2"
+                android:ellipsize="end" />
 
-                <TextView
-                    android:id="@+id/tvDireccion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Salta 325"
-                    android:textSize="14sp" />
+            <!-- PRECIO -->
+            <TextView
+                android:id="@+id/tvPrecio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="$ 245000"
+                android:textColor="#D32F2F"
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvPrecio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$17000.0"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <!-- TIPO + AMBIENTES -->
+            <TextView
+                android:id="@+id/tvTipoAmbientes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Departamento • 3 ambientes"
+                android:textColor="#555555"
+                android:textSize="14.5sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- ESTADO -->
+            <TextView
+                android:id="@+id/tvEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_estado_disponible"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp"
+                android:text="Disponible"
+                android:textColor="#FFFFFF"
+                android:textSize="13.5sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

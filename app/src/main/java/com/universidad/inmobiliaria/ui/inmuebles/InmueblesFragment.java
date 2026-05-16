@@ -5,63 +5,92 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
-
-import com.universidad.inmobiliaria.R;
 import com.universidad.inmobiliaria.databinding.FragmentInmueblesBinding;
-
-import java.util.ArrayList;
+import com.universidad.inmobiliaria.modelo.Inmueble;
 
 public class InmueblesFragment extends Fragment {
 
-    private FragmentInmueblesBinding b;
-    private InmueblesViewModel vm;
+    private FragmentInmueblesBinding binding;
+    private InmueblesViewModel viewModel;
     private AdapterInmueble adapter;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container,
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        b = FragmentInmueblesBinding.inflate(inflater, container, false);
+        binding = FragmentInmueblesBinding.inflate(inflater, container, false);
+        return binding.getRoot();
+    }
 
-        vm = new ViewModelProvider(this)
-                .get(InmueblesViewModel.class);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        b.recyclerView.setLayoutManager(
-                new GridLayoutManager(getContext(), 2)
-        );
+        viewModel = new ViewModelProvider(this).get(InmueblesViewModel.class);
 
-        // Adapter vacío inicialmente
-        adapter = new AdapterInmueble(new ArrayList<>());
+        configurarRecyclerView();
+        configurarObservadores();
+        configurarBotones();
 
-        b.recyclerView.setAdapter(adapter);
+        // Cargar los inmuebles al entrar al fragment
+        viewModel.cargarInmuebles();
+    }
 
-        vm.getListaMutable().observe(getViewLifecycleOwner(), lista -> {
+    private void configurarRecyclerView() {
+        adapter = new AdapterInmueble(null);
 
-            adapter.setLista(lista);
+        binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
+        binding.recyclerView.setAdapter(adapter);
 
+        // Click en un inmueble → ir a detalle
+        adapter.setOnItemClickListener(inmueble -> {
+            // TODO: Navegar al detalle
+            Toast.makeText(requireContext(),
+                    "Abrir detalle de: " + inmueble.getDireccion(),
+                    Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void configurarObservadores() {
+        // Observar la lista de inmuebles
+        viewModel.getListaMutable().observe(getViewLifecycleOwner(), inmuebles -> {
+            if (inmuebles != null) {
+                adapter.setLista(inmuebles);
+            }
         });
 
-        vm.cargarInmuebles();
-
-        // Navegacion del boton para ir a la parte de ALTA de inmueble.
-        b.btnAltaInmueble.setOnClickListener(v -> {
-            NavController navController = Navigation.findNavController(v);
-            navController.navigate(R.id.detalleInmuebleFragment);
+        // Observar errores
+        viewModel.getError().observe(getViewLifecycleOwner(), error -> {
+            if (error != null) {
+                Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show();
+            }
         });
 
-        return b.getRoot();
+        // Observar estado de carga (opcional - podemos agregar un ProgressBar después)
+        viewModel.getCargando().observe(getViewLifecycleOwner(), cargando -> {
+            // binding.progressBar.setVisibility(cargando ? View.VISIBLE : View.GONE);
+        });
+    }
+
+    private void configurarBotones() {
+        // Botón flotante para agregar inmueble
+        binding.btnAltaInmueble.setOnClickListener(v -> {
+            Toast.makeText(requireContext(), "Próximamente: Formulario de Alta", Toast.LENGTH_SHORT).show();
+
+            // Cuando creemos el fragment de alta:
+            // NavHostFragment.findNavController(this)
+            //     .navigate(R.id.action_nav_inmuebles_to_altaInmuebleFragment);
+        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        b = null;
+        binding = null;
     }
 }

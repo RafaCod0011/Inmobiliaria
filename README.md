@@ -26,7 +26,29 @@ Aplicación Android para propietarios de inmuebles desarrollada en Java con Andr
 - Gestión de inmuebles
 - Listado de contratos y pagos
 
----
+### 🗺️ Configurar API Key de Google Maps.
+
+Sigue estos pasos para configurar correctamente la clave de Google Maps en el proyecto:
+
+1. **Crear el archivo de secretos**  
+   Crea un archivo llamado `secrets.properties` en la raíz del proyecto y añade tu clave con el siguiente formato:
+   ```properties
+   MAPS_API_KEY=TU_API_KEY_AQUÍ 
+   ```
+2. Crea un archivo llamado `local.defaults.properties` en la raíz del proyecto con un valor de respaldo:
+    ```propierties
+    MAPS_API_KEY=DEFAULT_API_KEY
+    ```
+3. Verifica que en el archivo `AndroidManifest.xml`, dentro de la etiqueta `<application>`, la clave quede referenciada de la siguiente manera:
+   ```xml
+    <meta-data
+       android:name="com.google.android.geo.API_KEY"
+       android:value="${MAPS_API_KEY}" />
+   ```
+4. Sincronizar Gradle.
+   
+    
+
 ### 🚀 Cómo ejecutar el proyecto
 
 1. Clonar el repositorio

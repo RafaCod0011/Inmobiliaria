@@ -57,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="Departamento • 3 ambientes"
-                android:textColor="#555555"
                 android:textSize="14.5sp" />
 
             <!-- ESTADO -->

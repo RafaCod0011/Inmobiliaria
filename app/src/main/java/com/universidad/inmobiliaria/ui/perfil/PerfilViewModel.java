@@ -114,7 +114,7 @@ public class PerfilViewModel extends AndroidViewModel {
             propietario.setNombre(nombre);
             propietario.setApellido(apellido);
             propietario.setDni(Integer.parseInt(dni));
-            propietario.setTelefono(Integer.parseInt(telefono));
+            propietario.setTelefono(telefono);
             propietario.setEmail(email);
             propietario.setClave(null);
 

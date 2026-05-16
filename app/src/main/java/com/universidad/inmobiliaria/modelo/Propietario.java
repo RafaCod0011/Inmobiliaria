@@ -8,7 +8,7 @@ public class Propietario implements Serializable {
     private String nombre;
     private String apellido;
     private int dni;
-    private int telefono;
+    private String telefono;
     private String email;
     private String clave;
 
@@ -16,7 +16,7 @@ public class Propietario implements Serializable {
     public Propietario() {
     }
 
-    public Propietario(int idPropietario, String nombre, String apellido, int dni, int telefono, String email, String clave) {
+    public Propietario(int idPropietario, String nombre, String apellido, int dni, String telefono, String email, String clave) {
         this.idPropietario = idPropietario;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -58,11 +58,11 @@ public class Propietario implements Serializable {
         this.apellido = apellido;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

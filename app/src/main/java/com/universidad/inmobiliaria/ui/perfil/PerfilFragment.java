@@ -42,7 +42,7 @@ public class PerfilFragment extends Fragment {
                 binding.etNombre.setText(propietario.getNombre());
                 binding.etApellido.setText(propietario.getApellido());
                 binding.etDni.setText(String.valueOf(propietario.getDni()));
-                binding.etTelefono.setText(String.valueOf(propietario.getTelefono()));
+                binding.etTelefono.setText(propietario.getTelefono());
                 binding.etEmail.setText(propietario.getEmail());
             }
         });

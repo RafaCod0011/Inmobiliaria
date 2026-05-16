@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:backgroundTint="#009688"
     app:cardCornerRadius="20dp"
     app:cardElevation="4dp">
 
@@ -34,7 +33,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:backgroundTint="#FFFFFF"
             app:cardCornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +51,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Salta 325"
-                    android:textColor="#00796B"
                     android:textSize="14sp" />
 
                 <TextView
@@ -61,7 +58,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="$17000.0"
-                    android:textColor="#004D40"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>

@@ -131,6 +131,11 @@ public class PerfilViewModel extends AndroidViewModel {
 
             String token = ApiClient.usarToken(getApplication());
 
+            if (token == null || token.isEmpty()) {
+                mensajeMutable.postValue("No se pudo obtener el token");
+                return;
+            }
+
             ApiClient.MiServicioInmobiliaria servicio = ApiClient.getServicio();
 
             Call<Propietario> call = servicio.actualizarPropietario(token,propietario);
@@ -156,8 +161,8 @@ public class PerfilViewModel extends AndroidViewModel {
                         public void onFailure(
                                 Call<Propietario> call, Throwable t
                         ) {
-                        Log.d("Error al actualizar el perfil", t.getMessage()
-                            );
+                            mensajeMutable.postValue("Error de conexión al actualizar el perfil");
+                            Log.e("ActualizarPerfil", "Fallo en la llamada", t);
                         }
                     });
         }

@@ -27,5 +27,5 @@
     <string name="menu_inquilinos">Inquilinos</string>
     <string name="menu_contratos">Contratos</string>
     <string name="menu_logout">Logout</string>
-    <string name="ubicacion_de_nuestra_inmobiliaria">Ubicacion de nuestra Inmobiliaria</string>
+    <string name="menu_inicio">Nuestra Inmobiliaria</string>
 </resources>

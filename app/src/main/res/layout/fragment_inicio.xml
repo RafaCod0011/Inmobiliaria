@@ -10,10 +10,11 @@
         android:id="@+id/text_inicio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ubicacion_de_nuestra_inmobiliaria"
-        android:textSize="20sp"
         android:layout_marginBottom="8dp"
-        android:textStyle="bold"/>
+        android:text="@string/menu_inicio"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/map"

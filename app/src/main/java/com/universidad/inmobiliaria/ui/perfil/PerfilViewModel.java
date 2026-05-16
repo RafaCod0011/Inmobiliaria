@@ -97,6 +97,15 @@ public class PerfilViewModel extends AndroidViewModel {
             mensajeMutable.postValue("El teléfono solo puede contener números");
             return;
         }
+        if (telefono.length() < 8 || telefono.length() > 15) {
+            mensajeMutable.postValue("El teléfono debe tener entre 8 y 15 dígitos");
+            return;
+        }
+        // Casos como "11111111" o "000000"
+        if (telefono.matches("^(\\d)\\1+$")) {
+            mensajeMutable.postValue("Ingrese un teléfono válido");
+            return;
+        }
 
         if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             mensajeMutable.postValue("Ingrese un email válido");

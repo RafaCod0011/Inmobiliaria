@@ -71,51 +71,42 @@ public class PerfilViewModel extends AndroidViewModel {
 
         }
 
-        public void guardarPerfil(String nombre, String apellido,String dni, String telefono,String email) {
+    public void guardarPerfil(String nombre, String apellido, String dni, String telefono, String email) {
 
-            if (nombre.isEmpty()
-                    || apellido.isEmpty()
-                    || dni.isEmpty()
-                    || telefono.isEmpty()
-                    || email.isEmpty()) {
+        if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
+            mensajeMutable.postValue("Complete todos los campos solicitados");
+            return;
+        }
 
-                mensajeMutable.postValue(
-                        "Complete todos los los campos solicitados"
-                );
-                return;
-            }
+        if (!nombre.matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+            mensajeMutable.postValue("El nombre no puede contener números o simbolos");
+            return;
+        }
 
-            if (!nombre.matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñ\\s]+$")) {
-                mensajeMutable.postValue(
-                        "El nombre no puede contener números"
-                );
-                return;
-            }
+        if (!apellido.matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+            mensajeMutable.postValue("El apellido no puede contener números o simbolos");
+            return;
+        }
 
-            if (!apellido.matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñ\\s]+$")) {
-                mensajeMutable.postValue(
-                        "El apellido no puede contener números"
-                );
-                return;
-            }
+        if (!dni.matches("^\\d{8}$")) {
+            mensajeMutable.postValue("El DNI debe contener 8 dígitos");
+            return;
+        }
 
-            if (!dni.matches("^[0-9]+$")) {
-                mensajeMutable.postValue(
-                        "El DNI solo puede contener números"
-                );
-                return;
-            }
+        if (!telefono.matches("^\\d+$")) {
+            mensajeMutable.postValue("El teléfono solo puede contener números");
+            return;
+        }
 
-            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                mensajeMutable.postValue(
-                        "Ingrese un email válido"
-                );
-                return;
-            }
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            mensajeMutable.postValue("Ingrese un email válido");
+            return;
+        }
 
-            Propietario propietario =propietarioMutable.getValue();
+        try {
+            Propietario propietario = propietarioMutable.getValue();
 
-            if(propietario == null){
+            if (propietario == null) {
                 mensajeMutable.postValue("No se pudo obtener el perfil");
                 return;
             }
@@ -126,8 +117,15 @@ public class PerfilViewModel extends AndroidViewModel {
             propietario.setTelefono(Integer.parseInt(telefono));
             propietario.setEmail(email);
             propietario.setClave(null);
+
             actualizarPerfil(propietario);
+
+        } catch (NumberFormatException e) {
+            mensajeMutable.postValue("El DNI o el teléfono tienen un formato inválido");
+        } catch (Exception e) {
+            mensajeMutable.postValue("Ocurrió un error al guardar el perfil");
         }
+    }
 
         private void actualizarPerfil(Propietario propietario) {
 

@@ -1,30 +1,34 @@
 # Inmobiliaria La Punta - App para Propietarios
 
-## 🔹 Primera Entrega
+## 🔹 Segunda Entrega
 
-Aplicación Android para propietarios de inmuebles desarrollada en Java con Android Studio.
+[cite_start]Aplicación Android para propietarios de inmuebles desarrollada en Java con Android Studio, orientada a la gestión y visualización de propiedades, contratos y datos personales desde la perspectiva del locador[cite: 42].
 
 ### ✅ Funcionalidades implementadas:
 
-- **Login** con Retrofit + autenticación JWT
-- Guardado seguro del token en SharedPreferences
-- Menú navegable (Drawer + Bottom Navigation)
-- Visualización de datos del perfil del propietario
-- Logout con limpieza de token
-- Protección de rutas (no se puede acceder sin login)
+* **Login / Logout Seguro:** Autenticación basada en Retrofit + JWT con almacenamiento local seguro en `SharedPreferences`. El sistema protege todas las rutas del aplicativo, asegurando que solo los usuarios autenticados consuman la API utilizando la identidad recuperada del token.
+* [cite_start]**Fragment Inicio (Ubicación):** Pantalla principal que integra la API de Google Maps para mostrar de forma interactiva la localización física de la sucursal de la inmobiliaria[cite: 89].
+* [cite_start]**Gestión de Perfil Completa:** * Visualización detallada de la información del propietario logueado[cite: 114].
+  * [cite_start]Edición y actualización de datos personales (Nombre, Apellido, DNI, Teléfono, Email) directamente hacia la base de datos de manera dinámica[cite: 47, 115].
+  * [cite_start]Control independiente para la modificación y cambio de contraseña por separado[cite: 72].
 
 ### 🧑‍💻 Tecnologías y Arquitectura:
 
-- Patrón **MVVM**
-- **ViewBinding**
-- **Retrofit + Gson** para consumo de API
-- **Navigation Component**
-- SharedPreferences para persistencia de token
+* Patrón **MVVM** (Model-View-ViewModel)
+* **ViewBinding** para una interacción segura con los elementos del layout
+* **Retrofit + Gson** para el consumo eficiente de la API REST
+* **Navigation Component** (Drawer Layout + Bottom Navigation)
+* [cite_start]**Google Maps SDK** para la integración del mapa de ubicación [cite: 84]
+* SharedPreferences para persistencia de token
 
-### 📋 Próximas entregas:
-- Edición de perfil y cambio de contraseña
-- Gestión de inmuebles
-- Listado de contratos y pagos
+---
+
+### 📋 Próximas funcionalidades (Siguientes etapas):
+* [cite_start]Listado dinámico de inmuebles del propietario logueado[cite: 46, 117].
+* [cite_start]Habilitar / Deshabilitar la disponibilidad de un inmueble específico desde la app[cite: 44].
+* [cite_start]Carga de nuevos inmuebles al sistema[cite: 135].
+
+---
 
 ### 🗺️ Configurar API Key de Google Maps.
 

@@ -1,13 +1,18 @@
 package com.universidad.inmobiliaria.ui.inmuebles;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.universidad.inmobiliaria.R;
 import com.universidad.inmobiliaria.databinding.ItemInmuebleBinding;
 import com.universidad.inmobiliaria.modelo.Inmueble;
+import com.universidad.inmobiliaria.request.ApiClient;
+
 import java.util.List;
 
 public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHolder> {
@@ -43,6 +48,14 @@ public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Inmueble inmueble = listaInmuebles.get(position);
 
+
+        // Imagen
+        Glide.with(holder.itemView.getContext())
+                .load(ApiClient.BASE_URL + inmueble.getImagen())
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(holder.binding.imgInmueble);
+
         // Dirección
         holder.binding.tvDireccion.setText(inmueble.getDireccion() != null ?
                 inmueble.getDireccion() : "Sin dirección");
@@ -66,9 +79,9 @@ public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHo
 
         // Click para ver detalle
         holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onItemClick(inmueble);
-            }
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("inmueble", inmueble);
+            Navigation.findNavController(v).navigate(R.id.action_nav_inmuebles_to_detalleInmuebleFragment, bundle);
         });
     }
 

@@ -46,14 +46,6 @@ public class InmueblesFragment extends Fragment {
 
         binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         binding.recyclerView.setAdapter(adapter);
-
-        // Click en un inmueble → ir a detalle
-        adapter.setOnItemClickListener(inmueble -> {
-            // TODO: Navegar al detalle
-            Toast.makeText(requireContext(),
-                    "Abrir detalle de: " + inmueble.getDireccion(),
-                    Toast.LENGTH_SHORT).show();
-        });
     }
 
     private void configurarObservadores() {

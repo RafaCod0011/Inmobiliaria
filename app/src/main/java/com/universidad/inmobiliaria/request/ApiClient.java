@@ -69,6 +69,13 @@ public class ApiClient {
         @FormUrlEncoded
         @POST("api/Propietarios/email")
         Call<String> resetearPass(@Field("email") String email);
+
+        //Actualizar Inmueble
+        @PUT("api/Inmuebles/actualizar")
+        Call<Inmueble> cambiarDisponibilidad(@Header("Authorization") String token, @Body Inmueble inmueble);
+
+        //Cargar Inmueble
+        //Implementar
     }
 
     public static void crearToken(Context context, String token) {

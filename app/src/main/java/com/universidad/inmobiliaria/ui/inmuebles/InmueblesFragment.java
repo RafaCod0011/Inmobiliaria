@@ -9,7 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+
+import com.universidad.inmobiliaria.R;
 import com.universidad.inmobiliaria.databinding.FragmentInmueblesBinding;
 import com.universidad.inmobiliaria.modelo.Inmueble;
 
@@ -72,11 +75,9 @@ public class InmueblesFragment extends Fragment {
     private void configurarBotones() {
         // Botón flotante para agregar inmueble
         binding.btnAltaInmueble.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "Próximamente: Formulario de Alta", Toast.LENGTH_SHORT).show();
-
-            // Cuando creemos el fragment de alta:
-            // NavHostFragment.findNavController(this)
-            //     .navigate(R.id.action_nav_inmuebles_to_altaInmuebleFragment);
+            // Navegación al fragmento de alta
+            NavHostFragment.findNavController(this)
+                    .navigate(R.id.action_nav_inmuebles_to_nuevoInmuebleFragment);
         });
     }
 

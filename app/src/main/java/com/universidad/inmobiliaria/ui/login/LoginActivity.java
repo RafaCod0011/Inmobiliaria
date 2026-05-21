@@ -20,6 +20,9 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.etUsuario.setText("luisprofessor@gmail.com");
+        binding.etPassword.setText("DEEKQW");
+
         vm = new ViewModelProvider(this).get(LoginViewModel.class);
 
         // Observers

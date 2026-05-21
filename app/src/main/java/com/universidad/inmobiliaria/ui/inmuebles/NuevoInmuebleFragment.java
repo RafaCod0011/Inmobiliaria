@@ -1,11 +1,16 @@
 package com.universidad.inmobiliaria.ui.inmuebles;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -18,8 +23,12 @@ import com.universidad.inmobiliaria.databinding.FragmentNuevoInmuebleBinding;
 public class NuevoInmuebleFragment extends Fragment {
 
     private NuevoInmuebleViewModel vm;
+
+    private Intent intent;
     private FragmentNuevoInmuebleBinding binding;
-    private ActivityResultLauncher<String> seleccionarImagen;
+    //private ActivityResultLauncher<String> seleccionarImagen;
+
+    private ActivityResultLauncher<Intent> selectorImagen2;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -31,42 +40,82 @@ public class NuevoInmuebleFragment extends Fragment {
         vm = new ViewModelProvider(this).get(NuevoInmuebleViewModel.class);
 
         // Launcher galeria
-        seleccionarImagen = registerForActivityResult(new ActivityResultContracts.GetContent(),uri -> {
-            if (uri != null) {
-                vm.setImagen(uri);
-            }
-        });
-
+//        seleccionarImagen = registerForActivityResult(new ActivityResultContracts.GetContent(),uri -> {
+//            if (uri != null) {
+//                vm.setImagen(uri);
+//            }
+//        });
+//
         vm.getImagenMutable().observe(getViewLifecycleOwner(), uri -> {
             if (uri != null) {
                 binding.ivImagen.setImageURI(uri);
             }
         });
 
+        cargarSpinners();
+
         vm.getMensajeMutable().observe(getViewLifecycleOwner(), mensaje -> {
-                if (mensaje != null) {
-                    Toast.makeText(getContext(), mensaje,Toast.LENGTH_SHORT                  ).show();
-                }
-            });
+            if (mensaje != null) {
+                Toast.makeText(getContext(), mensaje,Toast.LENGTH_SHORT                  ).show();
+            }
+        });
 
         binding.ivImagen.setOnClickListener(v -> {
-            seleccionarImagen.launch("image/*");
+            //seleccionarImagen.launch("image/*");
+            selectorImagen2.launch(intent);
         });
 
         binding.btnGuardarInmueble.setOnClickListener(v -> {
             vm.guardarInmueble(
-                    binding.etAmbientes.getText().toString(),
+                    binding.spAmbientes.getSelectedItem().toString(),
                     binding.etDireccion.getText().toString(),
                     binding.etSuperficie.getText().toString(),
                     binding.etLatitud.getText().toString(),
                     binding.etLongitud.getText().toString(),
                     binding.etValor.getText().toString(),
-                    binding.etUso.getText().toString(),
-                    binding.etTipo.getText().toString(),
-                    binding.cbDisponible.isChecked()
+                    binding.spUso.getSelectedItem().toString(),
+                    binding.spTipo.getSelectedItem().toString()
             );
         });
 
+        abrirGaleria();
+
         return binding.getRoot();
+    }
+
+    private void abrirGaleria() {
+        intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        selectorImagen2 = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult resultado) {
+                vm.recibirFoto(resultado);
+            }
+        });
+    }
+    private void cargarSpinners() {
+        ArrayAdapter<String> adapterAmbientes = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                new String[]{"1", "2", "3", "4", "5", "6"}
+        );
+        adapterAmbientes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spAmbientes.setAdapter(adapterAmbientes);
+
+        ArrayAdapter<String> adapterUso = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                new String[]{"Residencial", "Comercial"}
+        );
+        adapterUso.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spUso.setAdapter(adapterUso);
+
+        ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(
+                requireContext(),
+                android.R.layout.simple_spinner_item,
+                new String[]{"Casa", "Departamento", "Cabaña", "Hostel", "Hotel"}
+        );
+        adapterTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spTipo.setAdapter(adapterTipo);
     }
 }

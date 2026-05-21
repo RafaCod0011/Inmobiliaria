@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.universidad.inmobiliaria.R;
 import com.universidad.inmobiliaria.databinding.FragmentNuevoInmuebleBinding;
 
 public class NuevoInmuebleFragment extends Fragment {
@@ -76,6 +77,8 @@ public class NuevoInmuebleFragment extends Fragment {
                     binding.spUso.getSelectedItem().toString(),
                     binding.spTipo.getSelectedItem().toString()
             );
+
+            limpiarPantalla();
         });
 
         abrirGaleria();
@@ -117,5 +120,18 @@ public class NuevoInmuebleFragment extends Fragment {
         );
         adapterTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spTipo.setAdapter(adapterTipo);
+    }
+
+    private void limpiarPantalla() {
+        binding.spAmbientes.setSelection(1);
+        binding.etDireccion.setText("");
+        binding.etSuperficie.setText("");
+        binding.etLatitud.setText("");
+        binding.etLongitud.setText("");
+        binding.etValor.setText("");
+        binding.spUso.setSelection(1);
+        binding.spTipo.setSelection(1);
+
+        binding.ivImagen.setImageResource(R.drawable.ic_menu_camera);
     }
 }

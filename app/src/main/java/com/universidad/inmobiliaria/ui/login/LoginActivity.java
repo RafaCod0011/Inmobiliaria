@@ -1,8 +1,12 @@
 package com.universidad.inmobiliaria.ui.login;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.universidad.inmobiliaria.MainActivity;
@@ -43,11 +47,38 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         binding.btnLogin.setOnClickListener(v -> {
             String usuario = binding.etUsuario.getText().toString().trim();
             String password = binding.etPassword.getText().toString().trim();
             vm.verificarDatos(usuario, password);
         });
+
+        //para probar, cuando mantenemos presionado el boton de login
+        //metodo setOnLongClick
+        binding.btnLogin.setOnLongClickListener(v -> {
+            llamarEmergencia();
+            return true;
+        });
+
+
+
+    }
+    private void llamarEmergencia() {
+        //si tenemos el permiso hacemos la llamada
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:3544409860")
+            );
+            startActivity(intent);
+        } else {
+            requestPermissions(new String[]{Manifest.permission.CALL_PHONE},100);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        if (requestCode == 100 && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            llamarEmergencia();
+        }
     }
 }

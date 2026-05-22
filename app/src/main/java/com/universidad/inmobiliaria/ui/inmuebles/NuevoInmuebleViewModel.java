@@ -68,6 +68,16 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
     }
     */
 
+
+    public void recibirFoto(ActivityResult result) {
+        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+            Intent data = result.getData();
+            Uri uri = data.getData();
+            Log.d("salada", uri.toString());
+            imagenMutable.setValue(uri);
+        }
+    }
+
     public void guardarInmueble(
             String ambientes,
             String direccion,
@@ -79,87 +89,133 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
             String tipo
     ) {
 
-        try{
-            if (!(ambientes.isEmpty() || direccion.isEmpty() || superficie.isEmpty() || latitud.isEmpty()
-                    || longitud.isEmpty() || valor.isEmpty() || uso.isEmpty() || tipo.isEmpty())){
+        try {
+            ambientes = ambientes.trim();
+            direccion = direccion.trim();
+            superficie = superficie.trim();
+            latitud = latitud.trim();
+            longitud = longitud.trim();
+            valor = valor.trim();
+            uso = uso.trim();
+            tipo = tipo.trim();
 
-                Inmueble i = new Inmueble();
-                i.setAmbientes(Integer.parseInt(ambientes));
-                i.setDireccion(direccion);
-                i.setSuperficie(Integer.parseInt(superficie));
-                i.setLatitud(Double.parseDouble(latitud));
-                i.setLongitud(Double.parseDouble(longitud));
-                i.setValor(Double.parseDouble(valor));
-                i.setUso(uso);
-                i.setTipo(tipo);
+            if (ambientes.isEmpty() || direccion.isEmpty() ||
+                    superficie.isEmpty() || latitud.isEmpty() ||
+                    longitud.isEmpty() || valor.isEmpty() ||
+                    uso.isEmpty() || tipo.isEmpty()) {
 
-                byte[] imagen = transformarImagen();
-                if (imagen.length == 0) {
-                    Toast.makeText(getApplication(), "Debe ingresar imagen", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                String inmuebleJson = new Gson().toJson(i);
-                RequestBody inmuebleBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), inmuebleJson);
-                RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpeg"), imagen);
-
-                MultipartBody.Part imagenPart = MultipartBody.Part.createFormData("imagen", "imagen.jpg", requestFile);
-
-                ApiClient.MiServicioInmobiliaria servicio = ApiClient.getServicio();
-                String token = ApiClient.usarToken(getApplication());
-
-                Call<Inmueble> call = servicio.cargarInmueble(token, imagenPart, inmuebleBody);
-                call.enqueue(new Callback<>() {
-
-                    @Override
-                    public void onFailure(Call<Inmueble> call, Throwable t) {
-                        Toast.makeText(getApplication(), "Error al cargar inmueble", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        if (response.isSuccessful()) {
-                            Toast.makeText(getApplication(), "Inmueble cargado", Toast.LENGTH_SHORT).show();
-                            limpiarMutable.postValue(true);
-                        } else {
-                            Toast.makeText(getApplication(), "Error al cargar inmueble", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-
-            } else {
-                Toast.makeText(getApplication(), "Debe completar todos los campos", Toast.LENGTH_SHORT).show();
+                mensajeMutable.postValue("Debe completar todos los campos");
+                return;
             }
 
-        } catch (Exception e){
+            int amb = Integer.parseInt(ambientes);
+            int sup = Integer.parseInt(superficie);
+            double lat = Double.parseDouble(latitud);
+            double lon = Double.parseDouble(longitud);
+            double val = Double.parseDouble(valor);
 
-        }
-    }
+            if (amb <= 0) {
+                mensajeMutable.postValue("Los ambientes deben ser mayores a 0");
+                return;
+            }
 
-    public void recibirFoto(ActivityResult result) {
-        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-            Intent data = result.getData();
-            Uri uri = data.getData();
-            Log.d("salada", uri.toString());
-            imagenMutable.setValue(uri);
+            if (sup <= 0) {
+                mensajeMutable.postValue("La superficie debe ser mayor a 0");
+                return;
+            }
+
+            if (val <= 0) {
+                mensajeMutable.postValue("El valor debe ser mayor a 0");
+                return;
+            }
+
+            if (direccion.length() < 5) {
+                mensajeMutable.postValue("La dirección es demasiado corta");
+                return;
+            }
+
+            byte[] imagen = transformarImagen();
+
+            if (imagen.length == 0) {
+                mensajeMutable.postValue("Debe ingresar una imágen del inmueble");
+                return;
+            }
+
+
+            Inmueble i = new Inmueble();
+            i.setAmbientes(amb);
+            i.setDireccion(direccion);
+            i.setSuperficie(sup);
+            i.setLatitud(lat);
+            i.setLongitud(lon);
+            i.setValor(val);
+            i.setUso(uso);
+            i.setTipo(tipo);
+
+            String inmuebleJson = new Gson().toJson(i);
+            RequestBody inmuebleBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"),inmuebleJson);
+
+            RequestBody requestFile =RequestBody.create(MediaType.parse("image/jpeg"),imagen);
+
+            MultipartBody.Part imagenPart = MultipartBody.Part.createFormData( "imagen","imagen.jpg",requestFile);
+            ApiClient.MiServicioInmobiliaria servicio = ApiClient.getServicio();
+            String token = ApiClient.usarToken(getApplication());
+
+            Call<Inmueble> call =servicio.cargarInmueble(token,imagenPart,inmuebleBody);
+            call.enqueue(new Callback<Inmueble>() {
+
+                @Override
+                public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+
+                    if (response.isSuccessful()) {
+
+                        mensajeMutable.postValue("Inmueble cargado correctamente");
+                        limpiarMutable.postValue(true);
+
+                    } else {
+
+                        mensajeMutable.postValue("Error al cargar inmueble");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Inmueble> call, Throwable t) {
+
+                    mensajeMutable.postValue("Error de conexión");
+                }
+            });
+
+        } catch (NumberFormatException e) {
+
+            mensajeMutable.postValue("Los campos numéricos son inválidos");
+
+        } catch (Exception e) {
+
+            mensajeMutable.postValue("Error: " + e.getMessage());
         }
     }
 
     private byte[] transformarImagen() {
+
         try {
+
             Uri uri = imagenMutable.getValue();
+
+            if (uri == null) {
+                return new byte[]{};
+            }
             InputStream inputStream = getApplication().getContentResolver().openInputStream(uri);
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-            return byteArrayOutputStream.toByteArray();
-        } catch (FileNotFoundException ex) {
-            Toast.makeText(getApplication(), "Debe ingresar una foto", Toast.LENGTH_LONG).show();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            return baos.toByteArray();
+
+        } catch (Exception e) {
+            mensajeMutable.postValue("Error al procesar la imagen");
             return new byte[]{};
         }
-
     }
+
     public void resetLimpiar() {
         limpiarMutable.setValue(false);
     }

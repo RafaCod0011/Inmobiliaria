@@ -37,6 +37,7 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
     private MutableLiveData<Uri> imagenMutable;
     private MutableLiveData<String> mensajeMutable;
 
+    private MutableLiveData<Boolean> limpiarMutable;
     public NuevoInmuebleViewModel(@NonNull Application application) {
         super(application);
     }
@@ -55,9 +56,17 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
         return mensajeMutable;
     }
 
-    public void setImagen(Uri uri) {
+    public LiveData<Boolean> getLimpiarMutable() {
+        if (limpiarMutable == null) {
+            limpiarMutable = new MutableLiveData<>();
+        }
+        return limpiarMutable;
+    }
+
+    /*public void setImagen(Uri uri) {
         imagenMutable.setValue(uri);
     }
+    */
 
     public void guardarInmueble(
             String ambientes,
@@ -111,14 +120,12 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
                     public void onResponse(Call call, Response response) {
                         if (response.isSuccessful()) {
                             Toast.makeText(getApplication(), "Inmueble cargado", Toast.LENGTH_SHORT).show();
+                            limpiarMutable.postValue(true);
                         } else {
                             Toast.makeText(getApplication(), "Error al cargar inmueble", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
-
-
 
 
             } else {
@@ -153,6 +160,8 @@ public class NuevoInmuebleViewModel extends AndroidViewModel {
         }
 
     }
-
+    public void resetLimpiar() {
+        limpiarMutable.setValue(false);
+    }
 
 }

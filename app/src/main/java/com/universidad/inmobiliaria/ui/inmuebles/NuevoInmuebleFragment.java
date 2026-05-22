@@ -61,6 +61,15 @@ public class NuevoInmuebleFragment extends Fragment {
             }
         });
 
+        vm.getLimpiarMutable().observe(
+                getViewLifecycleOwner(),
+                limpiar -> {
+                    if(Boolean.TRUE.equals(limpiar)){
+                        limpiarPantalla();
+                        vm.resetLimpiar();
+                    }
+                });
+
         binding.ivImagen.setOnClickListener(v -> {
             //seleccionarImagen.launch("image/*");
             selectorImagen2.launch(intent);
@@ -78,7 +87,6 @@ public class NuevoInmuebleFragment extends Fragment {
                     binding.spTipo.getSelectedItem().toString()
             );
 
-            limpiarPantalla();
         });
 
         abrirGaleria();
@@ -97,41 +105,37 @@ public class NuevoInmuebleFragment extends Fragment {
         });
     }
     private void cargarSpinners() {
-        ArrayAdapter<String> adapterAmbientes = new ArrayAdapter<>(
-                requireContext(),
-                android.R.layout.simple_spinner_item,
-                new String[]{"1", "2", "3", "4", "5", "6"}
+
+        ArrayAdapter<CharSequence> adapterAmbientes =
+                ArrayAdapter.createFromResource(requireContext(),R.array.tipos_ambientes, android.R.layout.simple_spinner_item
         );
+
         adapterAmbientes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spAmbientes.setAdapter(adapterAmbientes);
 
-        ArrayAdapter<String> adapterUso = new ArrayAdapter<>(
-                requireContext(),
-                android.R.layout.simple_spinner_item,
-                new String[]{"Residencial", "Comercial"}
+        ArrayAdapter<CharSequence> adapterUso =
+                ArrayAdapter.createFromResource(requireContext(),R.array.tipos_uso, android.R.layout.simple_spinner_item
         );
         adapterUso.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spUso.setAdapter(adapterUso);
 
-        ArrayAdapter<String> adapterTipo = new ArrayAdapter<>(
-                requireContext(),
-                android.R.layout.simple_spinner_item,
-                new String[]{"Casa", "Departamento", "Cabaña", "Hostel", "Hotel"}
+        ArrayAdapter<CharSequence> adapterTipo =
+                ArrayAdapter.createFromResource(requireContext(),R.array.tipos_inmueble, android.R.layout.simple_spinner_item
         );
         adapterTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spTipo.setAdapter(adapterTipo);
     }
 
     private void limpiarPantalla() {
-        binding.spAmbientes.setSelection(1);
+        binding.spAmbientes.setSelection(0);
         binding.etDireccion.setText("");
         binding.etSuperficie.setText("");
         binding.etLatitud.setText("");
         binding.etLongitud.setText("");
         binding.etValor.setText("");
-        binding.spUso.setSelection(1);
-        binding.spTipo.setSelection(1);
-
+        binding.spUso.setSelection(0);
+        binding.spTipo.setSelection(0);
         binding.ivImagen.setImageResource(R.drawable.ic_menu_camera);
     }
+
 }

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 
@@ -46,9 +47,16 @@ public class InmueblesFragment extends Fragment {
 
     private void configurarRecyclerView() {
         adapter = new AdapterInmueble(null);
-
         binding.recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 2));
         binding.recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(inmueble -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("inmueble", inmueble);
+            Navigation.findNavController(requireView()).navigate(R.id.action_nav_inmuebles_to_detalleInmuebleFragment, bundle);
+        });
+
+
     }
 
     private void configurarObservadores() {

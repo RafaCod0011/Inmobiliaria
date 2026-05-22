@@ -16,5 +16,13 @@
             android:id="@+id/nav_inmuebles"
             android:icon="@drawable/ic_house_black_24dp"
             android:title="Inmuebles" />
+        <item
+            android:id="@+id/nav_inquilinos"
+            android:icon="@drawable/ic_tenant_black_24dp"
+            android:title="@string/menu_inquilinos" />
+        <item
+            android:id="@+id/nav_contratos"
+            android:icon="@drawable/ic_contracts_black_24dp"
+            android:title="@string/menu_contratos" />
     </group>
 </menu>

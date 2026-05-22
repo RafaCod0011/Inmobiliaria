@@ -22,22 +22,6 @@
             android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />
-
-        <!-- ID -->
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:hint="Id">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etIdInmueble"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false" />
-        </com.google.android.material.textfield.TextInputLayout>
-
         <!-- AMBIENTES -->
 
         <com.google.android.material.textfield.TextInputLayout
@@ -166,8 +150,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="16dp"
-            android:enabled="false"
             android:text="Disponible" />
+
+        <TextView
+            android:id="@+id/tvTextoDisponibilidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text=""
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
 
         <!-- IMAGEN -->
 

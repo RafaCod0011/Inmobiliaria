@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="6dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Código de pago -->
+        <TextView
+            android:id="@+id/tvCodigoPago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Código de pago: PAG-001"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Fecha de pago -->
+        <TextView
+            android:id="@+id/tvFechaPago"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Fecha de pago: 15/03/2025"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tvCodigoPago"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Monto -->
+        <TextView
+            android:id="@+id/tvMonto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Monto: $1250.00"
+            android:textSize="18sp"
+            android:textColor="#D32F2F"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvFechaPago"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Detalle -->
+        <TextView
+            android:id="@+id/tvDetalle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Detalle: Pago de renta marzo"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tvMonto"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Código de contrato -->
+        <TextView
+            android:id="@+id/tvCodigoContrato"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            android:text="Código contrato: CT-2025-001"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/tvDetalle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

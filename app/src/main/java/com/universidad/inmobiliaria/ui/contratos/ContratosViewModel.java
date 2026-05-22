@@ -1,19 +1,83 @@
 package com.universidad.inmobiliaria.ui.contratos;
 
+import android.app.Application;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class ContratosViewModel extends ViewModel {
+import com.universidad.inmobiliaria.modelo.Inmueble;
+import com.universidad.inmobiliaria.request.ApiClient;
 
-    private final MutableLiveData<String> mText;
+import java.util.List;
 
-    public ContratosViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is settings fragment");
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class ContratosViewModel extends AndroidViewModel {
+
+    private final MutableLiveData<List<Inmueble>> listaMutable = new MutableLiveData<>();
+    private final MutableLiveData<String> errorMutable = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> cargandoMutable = new MutableLiveData<>(false);
+    public ContratosViewModel(@NonNull Application application) {
+        super(application);
+    }
+    public LiveData<List<Inmueble>> getListaMutable() {
+        return listaMutable;
     }
 
-    public LiveData<String> getText() {
-        return mText;
+    public LiveData<String> getError() {
+        return errorMutable;
     }
+
+    public LiveData<Boolean> getCargando() {
+        return cargandoMutable;
+    }
+
+    // ==================== MÉTODOS ====================
+    public void cargarInmuebles() {
+        String token = ApiClient.usarToken(getApplication());
+
+        if (token == null || token.trim().isEmpty()) {
+            errorMutable.setValue("No se encontró token de autenticación. Inicie sesión nuevamente.");
+            return;
+        }
+
+        cargandoMutable.setValue(true);
+        errorMutable.setValue(null); // Limpiar error anterior
+
+        ApiClient.getServicio().getInmueblesAlquilados(token)
+                .enqueue(new Callback<List<Inmueble>>() {
+                    @Override
+                    public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
+                        cargandoMutable.setValue(false);
+
+                        if (response.isSuccessful() && response.body() != null) {
+                            listaMutable.setValue(response.body());
+                        } else {
+                            String error = "Error " + response.code() + ": " + response.message();
+                            errorMutable.setValue(error);
+                            Log.d("InmueblesViewModel", error);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Inmueble>> call, Throwable t) {
+                        cargandoMutable.setValue(false);
+                        String error = "Error de conexión: " + t.getMessage();
+                        errorMutable.setValue(error);
+                        Log.d("InmueblesViewModel", error);
+                    }
+                });
+    }
+
+    // Método útil para refrescar la lista
+    public void refresh() {
+        cargarInmuebles();
+    }
+
 }

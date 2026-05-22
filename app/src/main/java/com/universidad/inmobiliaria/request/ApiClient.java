@@ -85,6 +85,10 @@ public class ApiClient {
         Call<Inmueble> cargarInmueble(@Header("Authorization") String token,
                                       @Part MultipartBody.Part imagen,
                                       @Part("inmueble") RequestBody inmuebleBody);
+
+        //Obtener Inmuebles Alquilados
+        @GET("/api/Inmuebles/GetContratoVigente")
+        Call<List<Inmueble>> getInmueblesAlquilados(@Header("Authorization") String token);
     }
 
     public static void crearToken(Context context, String token) {

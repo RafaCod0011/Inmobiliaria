@@ -79,9 +79,9 @@ public class AdapterInmueble extends RecyclerView.Adapter<AdapterInmueble.ViewHo
 
         // Click para ver detalle
         holder.itemView.setOnClickListener(v -> {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("inmueble", inmueble);
-            Navigation.findNavController(v).navigate(R.id.action_nav_inmuebles_to_detalleInmuebleFragment, bundle);
+            if (listener != null) {
+                listener.onItemClick(inmueble);
+            }
         });
     }
 

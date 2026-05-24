@@ -26,54 +26,71 @@ public class DetalleInmuebleFragment extends Fragment {
     private FragmentDetalleInmuebleBinding binding;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        binding= FragmentDetalleInmuebleBinding.inflate(inflater,container,false);
-        vm = new ViewModelProvider(requireActivity()).get(DetalleInmuebleViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
-        vm.getUInmuebleMutable().observe(getViewLifecycleOwner(),new Observer<Inmueble>() {
-            @Override
-            public void onChanged(Inmueble inmueble) {
-                Glide.with(getContext())
-                        .load(ApiClient.BASE_URL + inmueble.getImagen())
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .error(R.drawable.ic_launcher_foreground)
-                        .into(binding.ivImagenInmueble);
-
-                binding.etAmbientesInmueble.setText(String.valueOf(inmueble.getAmbientes()));
-                binding.etSuperficieInmueble.setText(String.valueOf(inmueble.getSuperficie()));
-                binding.etDireccionInmueble.setText(inmueble.getDireccion());
-                binding.etLatitudInmueble.setText(String.valueOf(inmueble.getLatitud()));
-                binding.etLongitudInmueble.setText(String.valueOf(inmueble.getLongitud()));
-                binding.etValorInmueble.setText(String.valueOf(inmueble.getValor()));
-                binding.etUsoInmueble.setText(inmueble.getUso());
-                binding.etTipoInmueble.setText(inmueble.getTipo());
-                binding.cbDisponibleInmueble.setChecked(inmueble.isDisponible());
-            }
-        });
-
-        // Mostrar texto de disponibilidad.
-        vm.getTextoDisponibilidad().observe(getViewLifecycleOwner(), message -> {
-            if(message != null && !message.isEmpty()){
-                binding.tvTextoDisponibilidad.setVisibility(View.VISIBLE);
-                binding.tvTextoDisponibilidad.setText(message);
-            }else{
-                binding.tvTextoDisponibilidad.setVisibility(View.GONE);
-            }
-
-        });
-
-        // Valor del bundle recibido a traves de getArguments.
-        vm.cargarDetalleInmueble(getArguments());
-
-        // Boton para cambiar disponibilidad.
-        binding.cbDisponibleInmueble.setOnClickListener(v -> {
-            Toast.makeText(getContext(), "Actualizando estado......", Toast.LENGTH_SHORT).show();
-            vm.cambiarDisponibilidad(binding.cbDisponibleInmueble.isChecked());
-        });
+        binding = FragmentDetalleInmuebleBinding.inflate(inflater, container, false);
+        vm = new ViewModelProvider(this).get(DetalleInmuebleViewModel.class);
 
         return binding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        // Observador para los datos del inmueble
+        vm.getUInmuebleMutable().observe(getViewLifecycleOwner(), inmueble -> {
+            if (inmueble != null) {
+                cargarDatosInmueble(inmueble);
+            }
+        });
+
+        // Observador para el texto dinámico de disponibilidad
+        vm.getTextoDisponibilidad().observe(getViewLifecycleOwner(), texto -> {
+            if (texto != null) {
+                binding.tvTextoDisponibilidad.setText(texto);
+                binding.tvTextoDisponibilidad.setVisibility(View.VISIBLE);
+            }
+        });
+
+        // Observador para mensajes
+        vm.getMensaje().observe(getViewLifecycleOwner(), mensaje -> {
+            if (mensaje != null) {
+                Toast.makeText(requireContext(), mensaje, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // Cargar datos del inmueble desde el Bundle
+        vm.cargarDetalleInmueble(getArguments());
+
+        // Listener del checkbox
+        binding.cbDisponibleInmueble.setOnClickListener(v -> {
+            vm.cambiarDisponibilidad(binding.cbDisponibleInmueble.isChecked());
+        });
+    }
+
+    private void cargarDatosInmueble(Inmueble inmueble) {
+        Glide.with(this)
+                .load(ApiClient.BASE_URL + inmueble.getImagen())
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .error(R.drawable.ic_launcher_foreground)
+                .into(binding.ivImagenInmueble);
+
+        binding.etAmbientesInmueble.setText(String.valueOf(inmueble.getAmbientes()));
+        binding.etDireccionInmueble.setText(inmueble.getDireccion());
+        binding.etSuperficieInmueble.setText(String.valueOf(inmueble.getSuperficie()));
+        binding.etLatitudInmueble.setText(String.valueOf(inmueble.getLatitud()));
+        binding.etLongitudInmueble.setText(String.valueOf(inmueble.getLongitud()));
+        binding.etValorInmueble.setText(String.valueOf(inmueble.getValor()));
+        binding.etUsoInmueble.setText(inmueble.getUso());
+        binding.etTipoInmueble.setText(inmueble.getTipo());
+        binding.cbDisponibleInmueble.setChecked(inmueble.isDisponible());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

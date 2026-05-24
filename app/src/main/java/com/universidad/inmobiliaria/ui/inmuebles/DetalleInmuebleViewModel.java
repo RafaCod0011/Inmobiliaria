@@ -15,9 +15,9 @@ import retrofit2.Response;
 
 public class DetalleInmuebleViewModel extends AndroidViewModel {
 
-    private MutableLiveData<Inmueble> inmuebleMutable = new MutableLiveData<>();
-    private MutableLiveData<String> textoDisponibilidadM = new MutableLiveData<>();
-    private MutableLiveData<String> mensaje = new MutableLiveData<>();
+    private final MutableLiveData<Inmueble> inmuebleMutable = new MutableLiveData<>();
+    private final MutableLiveData<String> textoDisponibilidad = new MutableLiveData<>();
+    private final MutableLiveData<String> mensaje = new MutableLiveData<>();
 
     public DetalleInmuebleViewModel(@NonNull Application application) {
         super(application);
@@ -28,7 +28,7 @@ public class DetalleInmuebleViewModel extends AndroidViewModel {
     }
 
     public LiveData<String> getTextoDisponibilidad() {
-        return textoDisponibilidadM;
+        return textoDisponibilidad;
     }
 
     public LiveData<String> getMensaje() {
@@ -39,12 +39,7 @@ public class DetalleInmuebleViewModel extends AndroidViewModel {
         Inmueble inmueble = bundle.getSerializable("inmueble", Inmueble.class);
         if (inmueble != null) {
             inmuebleMutable.setValue(inmueble);
-
-            if (inmueble.isDisponible()) {
-                textoDisponibilidadM.setValue("Disponible para alquilar");
-            } else {
-                textoDisponibilidadM.setValue("No disponible para alquilar");
-            }
+            actualizarTextoDisponibilidad(inmueble.isDisponible());
         }
     }
 
@@ -65,7 +60,6 @@ public class DetalleInmuebleViewModel extends AndroidViewModel {
                             actualizarTextoDisponibilidad(response.body().isDisponible());
                             mensaje.postValue("Disponibilidad actualizada correctamente");
                         } else {
-                            // ←←← MANEJO CENTRALIZADO DE 401/403
                             if (ApiClient.manejarErrorAutorizacion(getApplication(), response.code())) {
                                 return;
                             }
@@ -83,9 +77,9 @@ public class DetalleInmuebleViewModel extends AndroidViewModel {
 
     private void actualizarTextoDisponibilidad(boolean disponible) {
         if (disponible) {
-            textoDisponibilidadM.postValue("Disponible para alquilar");
+            textoDisponibilidad.postValue("Disponible para alquilar");
         } else {
-            textoDisponibilidadM.postValue("No disponible para alquilar");
+            textoDisponibilidad.postValue("No disponible para alquilar");
         }
     }
 }

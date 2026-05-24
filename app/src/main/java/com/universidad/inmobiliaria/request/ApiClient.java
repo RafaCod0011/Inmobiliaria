@@ -1,6 +1,7 @@
 package com.universidad.inmobiliaria.request;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
@@ -101,6 +102,28 @@ public class ApiClient {
     public static String usarToken(Context context) {
         SharedPreferences sp = context.getSharedPreferences("token.xml", Context.MODE_PRIVATE);
         return sp.getString("token", null);
+    }
+    // ==================== MANEJO CENTRALIZADO DE AUTORIZACIÓN ====================
+
+    /**
+     * Maneja errores de autorización (401 y 403).
+     * Borra el token y redirige al LoginActivity.
+     * @return true si se manejó el error de autorización
+     */
+    public static boolean manejarErrorAutorizacion(Context context, int codigoError) {
+        if (codigoError == 401 || codigoError == 403) {
+
+            // Borrar token
+            borrarToken(context);
+
+            // Redirigir al Login limpiando toda la pila
+            Intent intent = new Intent(context, com.universidad.inmobiliaria.ui.login.LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.startActivity(intent);
+
+            return true; // Se manejó el error
+        }
+        return false;
     }
 
 }

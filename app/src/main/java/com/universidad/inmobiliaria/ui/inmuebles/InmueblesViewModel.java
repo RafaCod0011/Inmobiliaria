@@ -56,7 +56,15 @@ public class InmueblesViewModel extends AndroidViewModel {
 
                         if (response.isSuccessful() && response.body() != null) {
                             listaMutable.setValue(response.body());
+                            errorMutable.setValue(null);
                         } else {
+                            // ←←← MANEJO CENTRALIZADO DE 401/403
+                            if (ApiClient.manejarErrorAutorizacion(getApplication(), response.code())) {
+                                errorMutable.setValue("Sesión expirada. Redirigiendo al login...");
+                                return;
+                            }
+
+                            // Otros errores (400, 404, 500, etc.)
                             String error = "Error " + response.code() + ": " + response.message();
                             errorMutable.setValue(error);
                             Log.d("InmueblesViewModel", error);
@@ -66,9 +74,10 @@ public class InmueblesViewModel extends AndroidViewModel {
                     @Override
                     public void onFailure(Call<List<Inmueble>> call, Throwable t) {
                         cargandoMutable.setValue(false);
+
                         String error = "Error de conexión: " + t.getMessage();
                         errorMutable.setValue(error);
-                        Log.d("InmueblesViewModel", error);
+                        Log.e("InmueblesViewModel", error, t);
                     }
                 });
     }

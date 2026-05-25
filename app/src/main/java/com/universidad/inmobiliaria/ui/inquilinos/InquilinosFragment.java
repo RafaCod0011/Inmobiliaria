@@ -50,7 +50,7 @@ public class InquilinosFragment extends Fragment {
 
         adapter.setOnItemClickListener(inmueble -> {
             Bundle bundle = new Bundle();
-            bundle.putSerializable("inmueble", inmueble);
+            bundle.putInt("idInmueble", inmueble.getIdInmueble());
             Navigation.findNavController(requireView())
                     .navigate(R.id.action_nav_inquilinos_to_detalleInquilinoFragment, bundle);
         });

@@ -105,11 +105,11 @@ public class NuevoInmuebleFragment extends Fragment {
         binding.btnGuardarInmueble.setOnClickListener(v -> {
             vm.guardarInmueble(
                     binding.spAmbientes.getSelectedItem().toString(),
-                    binding.etDireccion.getText().toString().trim(),
-                    binding.etSuperficie.getText().toString().trim(),
-                    binding.etLatitud.getText().toString().trim(),
-                    binding.etLongitud.getText().toString().trim(),
-                    binding.etValor.getText().toString().trim(),
+                    binding.etDireccion.getText().toString(),
+                    binding.etSuperficie.getText().toString(),
+                    binding.etLatitud.getText().toString(),
+                    binding.etLongitud.getText().toString(),
+                    binding.etValor.getText().toString(),
                     binding.spUso.getSelectedItem().toString(),
                     binding.spTipo.getSelectedItem().toString()
             );

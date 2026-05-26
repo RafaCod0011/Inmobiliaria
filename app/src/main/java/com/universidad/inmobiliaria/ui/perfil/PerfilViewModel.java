@@ -66,8 +66,47 @@ public class PerfilViewModel extends AndroidViewModel {
     }
 
     public void guardarPerfil(String nombre, String apellido, String dni, String telefono, String email) {
-        if (nombre.isEmpty() || apellido.isEmpty() || dni.isEmpty() || telefono.isEmpty() || email.isEmpty()) {
+        if (nombre.trim().isEmpty() || apellido.trim().isEmpty() ||
+                dni.trim().isEmpty() || telefono.trim().isEmpty() || email.trim().isEmpty()) {
             mensajeMutable.postValue("Complete todos los campos solicitados");
+            return;
+        }
+
+        // Nombre y Apellido solo letras y espacios
+        if (!nombre.trim().matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+            mensajeMutable.postValue("El nombre solo puede contener letras");
+            return;
+        }
+
+        if (!apellido.trim().matches("^[a-zA-ZÁÉÍÓÚáéíóúÑñ\\s]+$")) {
+            mensajeMutable.postValue("El apellido solo puede contener letras");
+            return;
+        }
+
+        // DNI exactamente 8 dígitos
+        if (!dni.trim().matches("^\\d{8}$")) {
+            mensajeMutable.postValue("El DNI debe tener exactamente 8 dígitos");
+            return;
+        }
+
+        // Teléfono solo números, entre 8 y 15 dígitos
+        String tel = telefono.trim();
+        if (!tel.matches("^\\d+$")) {
+            mensajeMutable.postValue("El teléfono solo puede contener números");
+            return;
+        }
+        if (tel.length() < 8 || tel.length() > 15) {
+            mensajeMutable.postValue("El teléfono debe tener entre 8 y 15 dígitos");
+            return;
+        }
+        if (tel.matches("^(\\d)\\1{7,}$")) {  // Evita 11111111, 00000000, etc.
+            mensajeMutable.postValue("Ingrese un teléfono válido");
+            return;
+        }
+
+        // Email válido
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches()) {
+            mensajeMutable.postValue("Ingrese un email válido");
             return;
         }
 

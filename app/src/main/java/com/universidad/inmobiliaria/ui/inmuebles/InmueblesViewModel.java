@@ -15,9 +15,9 @@ import retrofit2.Response;
 
 public class InmueblesViewModel extends AndroidViewModel {
 
-    private final MutableLiveData<List<Inmueble>> listaMutable = new MutableLiveData<>();
-    private final MutableLiveData<String> errorMutable = new MutableLiveData<>();
-    private final MutableLiveData<Boolean> cargandoMutable = new MutableLiveData<>(false);
+    private MutableLiveData<List<Inmueble>> listaMutable = new MutableLiveData<>();
+    private MutableLiveData<String> errorMutable = new MutableLiveData<>();
+    private MutableLiveData<Boolean> cargandoMutable = new MutableLiveData<>(false);
 
     public InmueblesViewModel(@NonNull Application application) {
         super(application);

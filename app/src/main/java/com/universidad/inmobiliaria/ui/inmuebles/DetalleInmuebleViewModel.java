@@ -15,9 +15,9 @@ import retrofit2.Response;
 
 public class DetalleInmuebleViewModel extends AndroidViewModel {
 
-    private final MutableLiveData<Inmueble> inmuebleMutable = new MutableLiveData<>();
-    private final MutableLiveData<String> textoDisponibilidad = new MutableLiveData<>();
-    private final MutableLiveData<String> mensaje = new MutableLiveData<>();
+    private MutableLiveData<Inmueble> inmuebleMutable = new MutableLiveData<>();
+    private MutableLiveData<String> textoDisponibilidad = new MutableLiveData<>();
+    private MutableLiveData<String> mensaje = new MutableLiveData<>();
 
     public DetalleInmuebleViewModel(@NonNull Application application) {
         super(application);

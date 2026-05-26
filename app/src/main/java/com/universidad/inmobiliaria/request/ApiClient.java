@@ -106,7 +106,9 @@ public class ApiClient {
     // ==================== MANEJO CENTRALIZADO DE AUTORIZACIÓN ====================
 
     /**
-     * Maneja errores de autorización (401 y 403).
+     * Gestiona errores de autenticación devueltos por la API.
+     * - 401: Unauthorized → Token ausente, inválido o expirado.
+     * - 403: Forbidden   → Token válido pero sin permisos.
      * Borra el token y redirige al LoginActivity.
      * @return true si se manejó el error de autorización
      */

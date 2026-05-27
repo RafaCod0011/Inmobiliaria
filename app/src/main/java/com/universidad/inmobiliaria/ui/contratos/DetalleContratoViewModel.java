@@ -17,6 +17,10 @@ import com.universidad.inmobiliaria.modelo.Contrato;
 import com.universidad.inmobiliaria.modelo.Inmueble;
 import com.universidad.inmobiliaria.request.ApiClient;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -67,6 +71,25 @@ public class DetalleContratoViewModel extends AndroidViewModel {
                         Log.d("DetalleContratoVM", error);
                     }
                 });
+    }
+
+    public String formatearFecha(String fecha) {
+
+        try {
+            SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            SimpleDateFormat formatoArgentina = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            return formatoArgentina.format(formatoEntrada.parse(fecha));
+        } catch (Exception e) {
+            return fecha;
+        }
+
+    }
+
+    public String formatearMoneda(double monto) {
+
+        NumberFormat formatoMoneda = NumberFormat.getCurrencyInstance( new Locale("es", "AR"));
+        return formatoMoneda.format(monto);
+
     }
 
 

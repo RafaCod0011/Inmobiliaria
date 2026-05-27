@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.universidad.inmobiliaria.R;
 import com.universidad.inmobiliaria.databinding.FragmentDetalleContratoBinding;
@@ -52,6 +53,10 @@ public class DetalleContratoFragment extends Fragment {
 
         bloquearCampos();
 
+        vm.getMensaje().observe(getViewLifecycleOwner(), mensaje -> {
+            Toast.makeText(requireContext(), mensaje, Toast.LENGTH_SHORT).show();
+        });
+
         vm.getContratoMutable().observe(getViewLifecycleOwner(), contrato -> {
 
             if (contrato != null) {
@@ -88,31 +93,18 @@ public class DetalleContratoFragment extends Fragment {
         binding = null;
     }
 
-
     private void cargarDatosContrato(Contrato contrato) {
 
-        try {
-            SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            SimpleDateFormat formatoArgentina =  new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            String fechaInicioFormateada = formatoArgentina.format(formatoEntrada.parse(contrato.getFechaInicio()));
-            String fechaFinFormateada = formatoArgentina.format(formatoEntrada.parse(contrato.getFechaFinalizacion()));
-            binding.etFechaInicio.setText(fechaInicioFormateada);
-            binding.etFechaFin.setText(fechaFinFormateada);
-        } catch (Exception e) {
-            // Si falla el parseo, mostramos el original
-            binding.etFechaInicio.setText(contrato.getFechaInicio());
-            binding.etFechaFin.setText(contrato.getFechaFinalizacion());
-        }
-
-        NumberFormat formatoMoneda =  NumberFormat.getCurrencyInstance(new Locale("es", "AR"));
-        binding.etMontoAlquiler.setText(formatoMoneda.format(contrato.getMontoAlquiler()));
-
+        binding.etFechaInicio.setText(vm.formatearFecha(contrato.getFechaInicio()));
+        binding.etFechaFin.setText(vm.formatearFecha(contrato.getFechaFinalizacion()));
+        binding.etMontoAlquiler.setText(vm.formatearMoneda(contrato.getMontoAlquiler()));
         if (contrato.getInquilino() != null) {
-            String inquilino = contrato.getInquilino().getNombre() + " "+ contrato.getInquilino().getApellido();
+            String inquilino =contrato.getInquilino().getNombre()+ " "+ contrato.getInquilino().getApellido();
             binding.etInquilino.setText(inquilino);
         }
-
-        if (contrato.getInmueble() != null) {binding.etInmueble.setText(contrato.getInmueble().getDireccion());}
+        if (contrato.getInmueble() != null) {
+            binding.etInmueble.setText(contrato.getInmueble().getDireccion());
+        }
     }
 
     private void bloquearCampos(){

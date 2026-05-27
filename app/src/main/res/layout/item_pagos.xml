@@ -14,67 +14,121 @@
 
         <!-- Código de pago -->
         <TextView
+            android:id="@+id/tvLabelCodigoPago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Código de pago:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
             android:id="@+id/tvCodigoPago"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Código de pago: PAG-001"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvLabelCodigoPago"
+            app:layout_constraintStart_toEndOf="@id/tvLabelCodigoPago"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Fecha de pago -->
         <TextView
+            android:id="@+id/tvLabelFechaPago"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Fecha de pago:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelCodigoPago"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
             android:id="@+id/tvFechaPago"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:text="Fecha de pago: 15/03/2025"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvCodigoPago"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvLabelFechaPago"
+            app:layout_constraintStart_toEndOf="@id/tvLabelFechaPago"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Monto -->
         <TextView
+            android:id="@+id/tvLabelMonto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Monto:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelFechaPago"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
             android:id="@+id/tvMonto"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:text="Monto: $1250.00"
-            android:textSize="18sp"
-            android:textColor="#D32F2F"
+            android:textSize="14sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tvFechaPago"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvLabelMonto"
+            app:layout_constraintStart_toEndOf="@id/tvLabelMonto"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Detalle -->
         <TextView
+            android:id="@+id/tvLabelDetalle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Detalle:"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelMonto"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
             android:id="@+id/tvDetalle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:text="Detalle: Pago de renta marzo"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvMonto"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvLabelDetalle"
+            app:layout_constraintStart_toEndOf="@id/tvLabelDetalle"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <!-- Código de contrato -->
         <TextView
-            android:id="@+id/tvCodigoContrato"
-            android:layout_width="0dp"
+            android:id="@+id/tvLabelCodigoContrato"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="4dp"
-            android:text="Código contrato: CT-2025-001"
+            android:text="Código contrato:"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvDetalle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelDetalle"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tvCodigoContrato"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="4dp"
+            android:textSize="14sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/tvLabelCodigoContrato"
+            app:layout_constraintStart_toEndOf="@id/tvLabelCodigoContrato"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.universidad.inmobiliaria.modelo.Contrato;
 import com.universidad.inmobiliaria.modelo.Inmueble;
+import com.universidad.inmobiliaria.modelo.Pago;
 import com.universidad.inmobiliaria.modelo.Propietario;
 
 import java.util.List;
@@ -96,6 +97,13 @@ public class ApiClient {
         // Obtener Contrato vigente por ID de Inmueble
         @GET("api/contratos/inmueble/{id}")
         Call<Contrato> getContratoPorInmueble(@Header("Authorization") String token, @Path("id") int idInmueble);
+
+        // Obtener pagos por contrato
+        @GET("api/pagos/contrato/{id}")
+        Call<List<Pago>> obtenerPagosPorContrato(
+                @Header("Authorization") String authorization,
+                @Path("id") int idContrato
+        );
     }
 
     public static void crearToken(Context context, String token) {

@@ -28,9 +28,11 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Datos de prueba
+        /*
+         Harcodeo de credenciales para pruebas mas rapidas
         binding.etUsuario.setText("luisprofessor@gmail.com");
         binding.etPassword.setText("DEEKQW");
+        */
 
         vm = new ViewModelProvider(this).get(LoginViewModel.class);
 
